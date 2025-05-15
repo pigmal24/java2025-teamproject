@@ -30,5 +30,5 @@ MOHANO는 학생과 직장인을 위한 **이메일 기반 과제 관리 및 알
 
 - **언어**: Java 17+
 - **GUI**: Swing (Eclipse WindowBuilder 활용)
-- **데이터 저장**: File 기반 또는 SQLite (선택)
-- **빌드 도구**: Maven / Gradle (선택 사항)
+- **데이터 저장**: MariaDB
+- **빌드 도구**: Maven / Gradle
