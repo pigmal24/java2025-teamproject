@@ -1,5 +1,3 @@
-# java2025-teamproject
-
 # 📬 MOHANO
 
 > **Mail Organizer & Handler for Alerts & Notifications Optimizer**
