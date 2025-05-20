@@ -76,7 +76,6 @@ public class SettingMenu {
             	System.out.println("잘못된 메뉴 선택입니다. 다시 입력해주세요 (1~3)");
             }
 		}
-		
 	}
 	// StudentManager 클래스 내부에 추가
 	public void logInMenu() {
@@ -105,7 +104,7 @@ public class SettingMenu {
 	    	del3s();
 		    return;
 	    }
-	    
+
 	}
 
     public void signUpMenu() {

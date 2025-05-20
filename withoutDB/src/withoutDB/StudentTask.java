@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class StudentTask {
+
+    // id; // 기본키로 사용
     private String studentId;                  // 학번
     private String name;                       // 이름
     private String email;                      // 이메일 주소
@@ -124,4 +126,3 @@ public class StudentTask {
         }
     }
 }
-

@@ -20,6 +20,7 @@ public class ProjectMain {
     }
     
     public static void main(String[] args) throws InterruptedException {
+
     	clearConsole();
     	Scanner sc = new Scanner(System.in);
     	SettingMenu mohano = new SettingMenu(sc);

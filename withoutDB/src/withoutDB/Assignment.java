@@ -7,10 +7,15 @@ package withoutDB;
  * @File_Name : Assignment.java
  * @Todo_List : deadLine입력, 추가 시 예외처리 필요(LocalDateTime형태)
  */
+import lombok.Data;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+
 public class Assignment {
+
+    // private int id;
     private String subject;
     private String title;
     private LocalDateTime deadline;  // 시간까지 포함
