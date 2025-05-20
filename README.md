@@ -1,6 +1,6 @@
 # 📬 MOHANO
 
-> **Mail Organizer & Handler for Alerts & Notifications Optimizer**
+> **Mail Organizer and Handler for Alerts & Notifications Optimizer**
 
 **MOHANO**는 이메일을 통해 과제와 일정을 효율적으로 관리하고, 마감 알림을 최적화하는 스마트 이메일 보조 도구입니다.
 
@@ -28,7 +28,7 @@ MOHANO는 학생과 직장인을 위한 **이메일 기반 과제 관리 및 알
 
 ## 🛠️ 기술 스택
 
-- **언어**: Java 17+
-- **GUI**: Swing (Eclipse WindowBuilder 활용)
+- **언어**: Java 21
+- **GUI**: JavaFX (Eclipse WindowBuilder 활용)
 - **데이터 저장**: MariaDB
 - **빌드 도구**: Maven / Gradle
