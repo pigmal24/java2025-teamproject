@@ -16,22 +16,22 @@ import java.time.format.DateTimeFormatter;
 public class Assignment {
 
     // private int id;
-    private String taskSub;
-    private String taskName;
+    private String subject;
+    private String title;
     private LocalDateTime deadline;  // 시간까지 포함
 
     public Assignment(String subject, String title, String deadlineStr) {
-        this.taskSub = subject;
-        this.taskName = title;
+        this.subject = subject;
+        this.title = title;
         this.deadline = LocalDateTime.parse(deadlineStr, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
     public String getSubject() {
-        return taskSub;
+        return subject;
     }
 
     public String getTitle() {
-        return taskName;
+        return title;
     }
 
     public LocalDateTime getDeadline() {
@@ -39,12 +39,12 @@ public class Assignment {
     }
     
     public void setSubject(String sub) {
-    	this.taskSub = sub;
+    	this.subject = sub;
     	System.out.println("과목명 수정 완료");
     }
     
     public void setTitle(String title) {
-    	this.taskName = title;
+    	this.title = title;
     	System.out.println("과제명 수정 완료");
     }
 
@@ -55,7 +55,7 @@ public class Assignment {
 
     @Override
     public String toString() {
-        return "과목: " + taskSub + ", 과제: " + taskName + ", 제출기한: " + deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        return "과목: " + subject + ", 과제: " + title + ", 제출기한: " + deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 }
 
