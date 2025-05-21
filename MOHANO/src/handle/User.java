@@ -33,6 +33,20 @@ public class User {
         allTask = new ArrayList<>();
         todayTask = new ArrayList<>();
     }
+    // Getter & Setter for id
+    public void setId(int id) {
+    	this.id = id;
+    }
+    public int getId() {
+    	return id;
+    }
+    // Getter & Setter for taskId
+    public void setTaskId(int taskId) {
+    	this.taskId = taskId;
+    }
+    public int getTaskxId() {
+    	return taskId;
+    }
 
     // Getter & Setter for 학번
     public String getSchoolNum() {
