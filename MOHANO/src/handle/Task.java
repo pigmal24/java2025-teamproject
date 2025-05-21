@@ -4,7 +4,7 @@ package handle;
  * @Author : 2023007915 김준혁
  * @Project : 자바 팀프로젝트 MOHANO
  * @프로그램_설명 : 과제 정보를 담아두는 클래스(arrayList형)
- * @File_Name : Assignment.java
+ * @File_Name : Task.java
  * @Todo_List : deadLine입력, 추가 시 예외처리 필요(LocalDateTime형태)
  */
 
