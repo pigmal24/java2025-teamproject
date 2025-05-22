@@ -1,5 +1,5 @@
 package console;
-
+//sql에 create, update, read 클래스 만들떄, User class를 맴버로 해서 만들고, 생성자에다 setter, getter 활용해서 집어넣으면 될 것 같습니다.
 public class Func {
 	public void clearConsole() {
         // ANSI escape code로 화면을 지움
