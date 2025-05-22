@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Hand extends User { // 핸들링하는 객체, 르고아웃 시 User로 upcasting해서 SQL에다 저장 가능
+public class Hand extends User { // 핸들링하는 객체, 로그아웃 시 User로 upcasting해서 SQL에다 저장 가능
 	private ArrayList<Task> todayTask;//user 객체의 allTask에서 오늘자 과제를 뽑아 ArrayList로 만들기
 	public Hand() {
         todayTask = new ArrayList<>();
