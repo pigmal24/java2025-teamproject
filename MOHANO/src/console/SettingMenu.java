@@ -1,7 +1,6 @@
 package console;
 
 import java.util.Scanner;
-
 import handle.*;
 
 public class SettingMenu {
