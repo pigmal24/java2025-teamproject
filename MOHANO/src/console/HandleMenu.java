@@ -246,7 +246,6 @@ public class HandleMenu {
         	// menu() 메서드가 호출될 때 마감기한이 지난 메서드는 삭제
         	taskRepository.removePastTasksAll(user);
             fun.clearConsole();
-            //user.removeExpiredAssignments();
             System.out.printf("MOHANO - %s님의 페이지\n", user.getStudentName());
             System.out.printf("1. 과제 추가\n");
             System.out.printf("2. 과제 수정\n");
@@ -254,7 +253,6 @@ public class HandleMenu {
             System.out.printf("4. 과제 전체 확인\n");
             System.out.printf("5. 로그아웃\n");
             updateAndPrintTodayTask();
-            //user.printTodayTasks();
             System.out.printf(">> ");
 
             ch = Integer.parseInt(sc.nextLine());
@@ -281,6 +279,7 @@ public class HandleMenu {
                     return;
                 default:
                     System.out.println("잘못된 메뉴 선택입니다. 다시 입력해주세요 (1~5)");
+                    fun.del3s();
             }
         }
 
