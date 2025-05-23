@@ -19,6 +19,7 @@ public class User { // 실제로 생성하고, SQL에서 읽어오는 객체, ha
     protected String smtpPass;
     protected String studentName; // 이름
 
+    
     // 생성자
     public User() {
     }
@@ -52,4 +53,5 @@ public class User { // 실제로 생성하고, SQL에서 읽어오는 객체, ha
 	public void setStudentName(String studentName) {
 		this.studentName = studentName;
 	}
+	
 }

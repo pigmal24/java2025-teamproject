@@ -8,7 +8,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.Scanner;
-
+import java.time.format.DateTimeParseException;
 public class HandleMenu {
 
     private User user;
@@ -42,10 +42,10 @@ public class HandleMenu {
         }
     }
     // 옵션1. 과제 추가 메서드
-    public void addMenu() { //sql 에다가 X, 자바 내부에서 추가하고 로그아웃 시 반영
-        String temp1;
-        String temp2;
-        String temp3;
+    public void addMenu() { 
+        String subject; // 과목(subject)
+        String title; // 제목(title)
+        String deadLine; // 마감기한(deadLine)
 
         int userId = user.getId(); // user id 를 userId 에 저장
         while(true) {
@@ -53,41 +53,49 @@ public class HandleMenu {
             System.out.printf("MOHANO - %s님의 과제 추가\n",user.getStudentName());
             System.out.printf("돌아가려면 -1을 입력하세요.\n");
             System.out.printf("과목 입력>> ");
-            temp1 = sc.nextLine();
+            subject = sc.nextLine();
             fun.del1s();
-            if(temp1.equalsIgnoreCase("-1")) {
+            if(subject.equalsIgnoreCase("-1")) {
                 System.out.printf("3초 뒤 %s님의 페이지로 돌아갑니다.\n", user.getStudentName());
                 fun.del3s();
                 return;
             }
             System.out.printf("과제 이름 입력>> ");
-            temp2 = sc.nextLine();
+            title = sc.nextLine();
             fun.del1s();
-            if(temp2.equalsIgnoreCase("-1")) {
+            if(title.equalsIgnoreCase("-1")) {
                 System.out.printf("3초 뒤 %s님의 페이지로 돌아갑니다.\n", user.getStudentName());
                 fun.del3s();
                 return;
             }
             System.out.printf("제출 기한 입력(yyyy-MM-dd HH:mm)>> ");
-            temp3 = sc.nextLine();
+            deadLine = sc.nextLine();
             fun.del1s();
-            if(temp3.equalsIgnoreCase("-1")) {
+            if(deadLine.equalsIgnoreCase("-1")) {
                 System.out.printf("3초 뒤 %s님의 페이지로 돌아갑니다.\n", user.getStudentName());
                 fun.del3s();
                 return;
             }
-            Task task = new Task(userId,temp1, temp2, temp3);
-            taskRepository.save(task, user);
+            
+            // 형식에 맞게 데이터를 입력한 경우
+            // 형식에 맞지 않는 경우 예외 발생 --> 다시 입력
+            try {
+            	Task task = new Task(userId,subject, title, deadLine);
+            	taskRepository.save(task, user);
+                System.out.printf("%s 추가 완료\n",task.toString());
+                fun.del3s();
+                return;
+            } catch(DateTimeParseException e) {
 
-            System.out.printf("%s 추가 완료\n",task.toString());
-            fun.del3s();
-
-            return;
+            	System.out.println("데이터 형식이 잘못되었습니다. 다시 입력해주세요");
+            	continue;
+            }
+            
         }
     }
 
     // 옵션2. 과제 변경 메서드
-    public void changeMenu() {//sql 에다가 X, 자바 내부에서 수정하고 로그아웃 시 반영
+    public void changeMenu() {
 
 
             int taskId;
@@ -114,6 +122,13 @@ public class HandleMenu {
                 return;
             }
 
+            // taskId 가 범위에 포함되지 않을 경우 다시 입력
+            Task validation = taskRepository.findByTaskId(taskId);
+            if(validation == null) {
+            	System.out.println("id 에 해당하는 과제가 존재하지 않습니다.");
+            	return;
+            }
+            
             while (true) {
                 fun.clearConsole();
                 System.out.printf("MOHANO - %s님의 과제 수정(member)\n", user.getStudentName());
@@ -160,8 +175,6 @@ public class HandleMenu {
                         return;
                 }
             }
-
-
     }
 
     // 옵션3. 과제 삭제 메서드
@@ -177,9 +190,19 @@ public class HandleMenu {
                 System.out.println(task);
             }
 
+            // 삭제할 과제 taskId 를 입력
+            // taskId 에 해당하는 데이터가 없을 경우 return;
             System.out.printf("돌아가려면 -1을 입력하세요.\n");
             System.out.printf("삭제할 과제 taskId 입력>> ");
             taskId = Integer.parseInt(sc.nextLine());
+            
+            // taskId 가 범위에 포함되지 않을 경우 다시 입력
+            Task validation = taskRepository.findByTaskId(taskId);
+            if(validation == null) {
+            	System.out.println("id 에 해당하는 과제가 존재하지 않습니다. 메뉴로 돌아갑니다.");
+            	fun.del3s();
+            	return;
+            }
             fun.del1s();
             if(taskId == -1) {
                 System.out.printf("3초 뒤 %s님의 페이지로 돌아갑니다.\n", user.getStudentName());
@@ -219,6 +242,9 @@ public class HandleMenu {
 
         int ch;
         while (true) {
+        	
+        	// menu() 메서드가 호출될 때 마감기한이 지난 메서드는 삭제
+        	taskRepository.removePastTasksAll(user);
             fun.clearConsole();
             //user.removeExpiredAssignments();
             System.out.printf("MOHANO - %s님의 페이지\n", user.getStudentName());
@@ -249,8 +275,7 @@ public class HandleMenu {
                 case 4 : 
                 	showAllMenu();
                 	break;
-                case 5: //sql에다 바뀐 객체 덮어쓰기(update) 필요 (ex: logoutUser) return은 void, 파라미터에 User객체 넣기)
-                    // 여기서 taskArr은 따로 매소드를 만들거나, for each로 Task a : allTask로 순회)
+                case 5: 
                     System.out.println("3초 뒤 로그아웃합니다.");
                     fun.del3s();
                     return;

@@ -29,6 +29,8 @@ public class Task {
     }
 
     //  this.deadline = LocalDateTime.parse(deadlineStr, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+    
+    
     public int getTaskId() {
 		return taskId;
 	}

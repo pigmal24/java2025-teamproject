@@ -8,11 +8,16 @@
     import java.sql.PreparedStatement;
     import java.sql.ResultSet;
     import java.sql.SQLException;
-    import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
     import java.util.ArrayList;
     import java.util.List;
+    
+    import java.time.format.DateTimeFormatter;
 
-    import static connection.DBConnectionUtil.*;
+import java.util.Optional;
+
+import static connection.DBConnectionUtil.*;
 
     public class TaskRepository {
 
@@ -26,6 +31,10 @@
 
         public static TaskRepository getInstance() {
             return instance;
+        }
+        
+        public int getSequence() {
+        	return sequence;
         }
 
         public TaskRepository() {
@@ -101,6 +110,35 @@
             return tasks;
         }
 
+        // TaskId 에 맞는 과제를 반환
+        public Task findByTaskId(int taskId) {
+        	
+        	String sql = "SELECT * from task where taskId = ?";
+        	
+        	Task task = new Task();
+        	try {
+        		
+        		Connection con = getConnection();
+                PreparedStatement pstmt = con.prepareStatement(sql);
+                pstmt.setInt(1, taskId);
+                ResultSet rs = pstmt.executeQuery();
+                if(rs.next()) {
+                	task.setTaskId(rs.getInt("taskId"));
+                    task.setUserId(rs.getInt("userId"));
+                    task.setSubject(rs.getString("subject"));
+                    task.setTitle(rs.getString("title"));
+                    task.setDeadline(rs.getString("deadLine"));
+                    return task;
+                }
+                // id 에 해당하는 데이터가 없을 경우 null 반환
+                else {
+                	return null;
+                }
+        	} catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        
         // User id 에 맞는 모든 과제를 반환
         public List<Task> findByUserIdTaskAll(User user) {
 
@@ -134,6 +172,49 @@
             return tasks;
         }
 
+        // deadLine 이 지난 과제를 삭제하는 메서드
+        public List<Task> removePastTasksAll(User user) {
+        	
+        	String findSql =   "SELECT * FROM task where userId = ?";
+        	String deleteSql = "DELETE FROM task where taskId = ?";
+        	
+        	// 삭제한 과제들을 저장
+        	List<Task> removedTasks = new ArrayList<>();
+        	try {
+        		Connection con = getConnection();
+        		
+        		// user 의 모든 객체를 저장
+        		 PreparedStatement allPstmt=  con.prepareStatement(findSql);
+        		 allPstmt.setInt(1, user.getId());
+        		 ResultSet rs = allPstmt.executeQuery();
+        		 while(rs.next()) {
+        			 
+        			 Task task = new Task();
+                     task.setTaskId(rs.getInt("taskId"));
+                     task.setUserId(rs.getInt("userId"));
+                     task.setSubject(rs.getString("subject"));
+                     task.setTitle(rs.getString("title"));
+                     task.setDeadline(rs.getString("deadLine"));
+                     
+                     // deadLine 을 LocalDateTime 으로 parsing
+        			 LocalDateTime formatDeadLine = LocalDateTime.parse(rs.getString("deadLine"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        			 
+        			 // 마감기한이 지난 경우 삭제 해당 데이터 삭제
+        			 if(formatDeadLine.isBefore(LocalDateTime.now())) {
+        				 
+        				 removedTasks.add(task);
+        				 PreparedStatement deletePstmt = con.prepareStatement(deleteSql);
+        				 deletePstmt.setInt(1, task.getTaskId());
+        				 deletePstmt.executeUpdate();
+        				 	
+        			 }
+        		 }
+        	} catch (SQLException e) {
+                throw new RuntimeException(e);
+        	}
+        	return removedTasks;
+        }
+        
         public Task removeById(int taskId) {
 
             String findSql = "SELECT * FROM task WHERE taskId = ?";
