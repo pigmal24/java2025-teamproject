@@ -12,5 +12,4 @@ public class MOHANOMain {
         mohano.mainMenu();
         sc.close();
     }
-
 }

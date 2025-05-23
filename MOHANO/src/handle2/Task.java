@@ -48,7 +48,6 @@ public class Task {
 
     public void setSubject(String sub) {
         this.subject = sub;
-        System.out.println("과목명 수정 완료");
     }
     
     public String getSubject() {
@@ -57,7 +56,6 @@ public class Task {
 
     public void setTitle(String title) {
         this.title = title;
-        //System.out.println("과제명 수정 완료");
     }
     
     public String getTitle() {

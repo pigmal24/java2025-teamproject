@@ -4,7 +4,9 @@ import handle2.Task;
 import handle2.User;
 import respository.TaskRepository;
 
-import java.util.List;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.Scanner;
 
 public class HandleMenu {
@@ -12,6 +14,7 @@ public class HandleMenu {
     private User user;
     private Scanner sc;
     private Func fun;
+    private List<Task> todayTask;
 
     TaskRepository taskRepository = TaskRepository.getInstance();
 
@@ -19,8 +22,25 @@ public class HandleMenu {
         this.user = loginUser;
         this.sc = sc;
         fun = new Func();
+        todayTask = new ArrayList<>();
     }
-
+    public void updateAndPrintTodayTask() {
+        todayTask.clear();
+        LocalDateTime now = LocalDateTime.now();
+        for (Task a : taskRepository.findByUserIdTaskAll(user)) {
+            Duration duration = Duration.between(now, a.getDeadline());
+            if (!duration.isNegative() && duration.toHours() <= 24) {
+                todayTask.add(a);
+            }
+        }
+        int i = 1;
+        System.out.println("오늘 할 과제 목록 (24시간 이내 마감):");
+        for (Task a : todayTask) {
+            System.out.printf("[%2d]: ",i);
+            System.out.println(a);
+            i++;
+        }
+    }
     // 옵션1. 과제 추가 메서드
     public void addMenu() { //sql 에다가 X, 자바 내부에서 추가하고 로그아웃 시 반영
         String temp1;
@@ -31,7 +51,6 @@ public class HandleMenu {
         while(true) {
             fun.clearConsole();
             System.out.printf("MOHANO - %s님의 과제 추가\n",user.getStudentName());
-            System.out.printf("2025-05-20 Author: wnsgur\n");
             System.out.printf("돌아가려면 -1을 입력하세요.\n");
             System.out.printf("과목 입력>> ");
             temp1 = sc.nextLine();
@@ -77,14 +96,12 @@ public class HandleMenu {
             fun.clearConsole();
 
             System.out.printf("MOHANO - %s님의 과제 수정(index)\n", user.getStudentName());
-            System.out.printf("2025-05-20 Author: wnsgur\n");
 
-            // User 의 모든 ID 출력
+            // User 의 모든 Task 출력
             List<Task> tasks = taskRepository.findByUserIdTaskAll(user);
             for (Task task : tasks) {
                 System.out.println(task);
             }
-            //showAllMenu(); // 모든 과제 출력
             System.out.printf("돌아가려면 -1을 입력하세요.\n");
 
 
@@ -139,11 +156,7 @@ public class HandleMenu {
                         break;
                     case -1:
                         System.out.printf("index 선택 화면으로 돌아갑니다.\n");
-                        try {
-                            Thread.sleep(3000); // 딜레이 3초
-                        } catch (InterruptedException e) {
-                            e.printStackTrace(); // 또는 무시해도 OK
-                        }
+                        fun.del3s();
                         return;
                 }
             }
@@ -158,7 +171,6 @@ public class HandleMenu {
         while(true) {
             fun.clearConsole();
             System.out.printf("MOHANO - %s님의 과제 삭제\n",user.getStudentName());
-            System.out.printf("2025-05-20 Author: wnsgur\n");
 
             List<Task>  tasks = taskRepository.findByUserIdTaskAll(user);
             for (Task task : tasks) {
@@ -192,7 +204,6 @@ public class HandleMenu {
         while(true) {
             fun.clearConsole();
             System.out.printf("MOHANO - %s님의 전체 과제\n",user.getStudentName());
-            System.out.printf("2025-05-20 Author: wnsgur\n");
             List<Task>  tasks = taskRepository.findByUserIdTaskAll(user);
 
             for (Task task : tasks) {
@@ -202,8 +213,6 @@ public class HandleMenu {
             sc.nextLine();
             break;
         }
-
-
 
     }
     public void menu() {
@@ -218,7 +227,7 @@ public class HandleMenu {
             System.out.printf("3. 과제 삭제\n");
             System.out.printf("4. 과제 전체 확인\n");
             System.out.printf("5. 로그아웃\n");
-            System.out.printf("2025-05-20 Author: wnsgur\n");
+            updateAndPrintTodayTask();
             //user.printTodayTasks();
             System.out.printf(">> ");
 
@@ -237,8 +246,9 @@ public class HandleMenu {
                     removeMenu();
                     break;
                 // 옵션4. 모든 과제 출력
-                case 4 : showAllMenu();
-                //break;
+                case 4 : 
+                	showAllMenu();
+                	break;
                 case 5: //sql에다 바뀐 객체 덮어쓰기(update) 필요 (ex: logoutUser) return은 void, 파라미터에 User객체 넣기)
                     // 여기서 taskArr은 따로 매소드를 만들거나, for each로 Task a : allTask로 순회)
                     System.out.println("3초 뒤 로그아웃합니다.");

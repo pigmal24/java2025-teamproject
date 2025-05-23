@@ -4,8 +4,6 @@ import handle2.User;
 import respository.UserRepository;
 
 import java.util.Scanner;
-import java.util.logging.Handler;
-
 
 public class SettingMenu {
     private Scanner sc;
@@ -110,15 +108,15 @@ public class SettingMenu {
 
         // 회원가입할 객체 생성 --> 해당 객체는 JDBC 코드에서 전달되기 위한 객체
         //User user = new User();
-        fun.del1s();
         /* sql로 접근해서 중복 확인 후 새 user table을 create
 	     * SignUpUSer signUp = new SignUpUser(String studentId, String name, String email)
 	     *
 	     *
 	    */
         fun.del3s();
-
         userRepository.save(user);
+        System.out.printf("회원가입 완료!\n");
+        
         return;
     }
 
