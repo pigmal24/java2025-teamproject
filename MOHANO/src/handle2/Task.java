@@ -16,8 +16,6 @@ public class Task {
     // private int id;
     private String subject;
     private String title;
-
-
 	private LocalDateTime deadline;  // 시간까지 포함
 
     public Task() {

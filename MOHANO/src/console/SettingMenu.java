@@ -49,35 +49,42 @@ public class SettingMenu {
         }
     }
     public void logInMenu() {
-        fun.clearConsole();
-        System.out.printf("MOHANO - 로그인 메뉴\n");
-        System.out.printf("2025-05-20 Author: wnsgur\n");
-        System.out.print("학번 입력>> ");
-        String studentId = sc.nextLine();
-        fun.del1s();
 
-        System.out.print("이메일 입력>> ");
-        String email = sc.nextLine();
-        fun.del1s();
+        while(true) {
 
-	    /* sql로 접근해서 read 한 다음 User 객체를 return해서 HandleMenu에다 집어넣는거 필요, loginUser 객체에서 User 맴버를 만들고
-	     * loginUser 생성자에서 sql 연결 및 read해서 get해온다는 마인드
-	     * HandleMenu handle = new HandleMenu(loginUser(studentId, email));
-	     * handle.mainMenu();
-	     *
-	    */
+            fun.clearConsole();
+            System.out.printf("MOHANO - 로그인 메뉴\n");
+            System.out.printf("2025-05-20 Author: wnsgur\n");
+            System.out.print("학번 입력>> ");
+            String studentId = sc.nextLine();
+            fun.del1s();
 
-        User user = userRepository.findByLoginId(studentId).filter(m -> m.getEmailAddress().equals(email)).orElse(null);
-        if(user != null) {
-            System.out.println("로그인 성공");
+            System.out.print("이메일 입력>> ");
+            String email = sc.nextLine();
+            fun.del1s();
+
+            /* sql로 접근해서 read 한 다음 User 객체를 return해서 HandleMenu에다 집어넣는거 필요, loginUser 객체에서 User 맴버를 만들고
+             * loginUser 생성자에서 sql 연결 및 read해서 get해온다는 마인드
+             * HandleMenu handle = new HandleMenu(loginUser(studentId, email));
+             * handle.mainMenu();
+             *
+             */
+
+            User user = userRepository.findByLoginId(studentId).filter(m -> m.getEmailAddress().equals(email)).orElse(null);
+            if(user != null) {
+                System.out.println("로그인 성공");
+                HandleMenu handle = new HandleMenu(user,sc);
+                handle.menu();
+                break;
+            }
+            // 로그인 실패 시 다시 로그인
+            else  {
+                System.out.println("로그인 실패");
+                System.out.println("다시 입력해주세요");
+            }
         }
-        else  {
-            System.out.println("로그인 실패");
-        }
-
-        HandleMenu handle = new HandleMenu(user,sc);
-        handle.menu();
     }
+
     public void signUpMenu() { //sql user table에다가 create하는 매소드 필요(ex: signUpUser)
         fun.clearConsole();
         System.out.printf("MOHANO - 회원가입 메뉴\n");
