@@ -1,6 +1,6 @@
 package handle2;
 
-import lombok.Data;
+//import lombok.Data;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 
 
-@Data
+//@Data
 public class Task {
 
     private int taskId; // PK
