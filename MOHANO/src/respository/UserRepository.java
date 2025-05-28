@@ -48,6 +48,7 @@ public class  UserRepository {
         }
     }
 
+    // 회원가입 메서드
     public void save(User user) {
 
         String sql = "insert into user(id,schoolNum,emailAddress,smtpPass,studentName) " +
@@ -107,9 +108,9 @@ public class  UserRepository {
         // 없을 경우 NULL 반환
         return findAll().stream().filter(m -> m.getSchoolNum().equals(schoolNum)).findFirst();
     }
-    // 모든 User 정보를 담는 메서드
+    
+    // 모든 User의 정보를 담는 메서드
     // ArrayList 로 반환
-
     public List<User> findAll() {
 
         List<User> users = new ArrayList<>();
