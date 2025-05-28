@@ -57,6 +57,7 @@ import static connection.DBConnectionUtil.*;
             }
         }
 
+        // 과제 저장 메서드
         public void save(Task task, User user) {
 
             String sql = "insert into task(taskId,userId,subject,title,deadLine) " +
@@ -85,7 +86,7 @@ import static connection.DBConnectionUtil.*;
             }
         }
 
-        // Task 테이블의 모든 데이터를 반환하는 메서드
+        // Task 테이블의 모든 과제를 반환하는 메서드
         public List<Task> findAll() {
 
             String sql = "SELECT * FROM task";
@@ -110,7 +111,7 @@ import static connection.DBConnectionUtil.*;
             return tasks;
         }
 
-        // TaskId 에 맞는 과제를 반환
+        // TaskId 에 맞는 과제를 반환하는 메서드
         public Task findByTaskId(int taskId) {
         	
         	String sql = "SELECT * from task where taskId = ?";
@@ -139,7 +140,7 @@ import static connection.DBConnectionUtil.*;
             }
         }
         
-        // User id 에 맞는 모든 과제를 반환
+        // User id 에 맞는 모든 과제를 모두 반환하는 메서드
         public List<Task> findByUserIdTaskAll(User user) {
 
             List<Task> tasks = new ArrayList<>();
@@ -215,6 +216,7 @@ import static connection.DBConnectionUtil.*;
         	return removedTasks;
         }
         
+        // taskId 에 해당하는 과제를 삭제하는 메서드
         public Task removeById(int taskId) {
 
             String findSql = "SELECT * FROM task WHERE taskId = ?";
