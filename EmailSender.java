@@ -11,13 +11,13 @@ public class EmailSender {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("보내는 Gmail 주소: ");
+        System.out.print("사용자 Gmail 주소: ");
         String senderEmailAddress = scanner.nextLine();
-
+        
         System.out.print("앱 비밀번호: ");
         String senderEmailPassword = scanner.nextLine();
 
-        System.out.print("받는 사람 이메일 주소: ");
+        System.out.print("받는 Gmail 주소: ");
         String receiverEmailAddress = scanner.nextLine();
 
         System.out.print("이메일 제목: ");
@@ -53,7 +53,7 @@ public class EmailSender {
             message.setFrom(new InternetAddress(senderEmailAddress));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(receiverEmailAddress));
             message.setSubject(emailSubject);
-            message.setText(emailContent); // 일반 텍스트로 보내고 싶을 경우
+            message.setText(emailContent); 
 
             Transport.send(message);
 
