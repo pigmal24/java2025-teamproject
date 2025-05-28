@@ -9,13 +9,14 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.Scanner;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 public class HandleMenu {
 
     private User user;
     private Scanner sc;
     private Func fun;
-    private List<Task> todayTask;
+    private List<Task> todayTask = new ArrayList();
 
     TaskRepository taskRepository = TaskRepository.getInstance();
 
@@ -23,12 +24,17 @@ public class HandleMenu {
         this.user = loginUser;
         this.sc = sc;
         fun = new Func();
-        todayTask = new ArrayList<>();
+        
+        /*
+         * 기한이 지난 과제들을 removedTask 에 저장
+         */
+        List<Task> removedTask = taskRepository.removePastTasksAll(user);
         updateTodayTask();
         EmailSender es = new EmailSender();
-        es.sendUserTaskEmail(user, todayTask);
+        es.sendUserTaskEmail(user, todayTask, removedTask);
     }
     
+    // 마감시간이 24시간 이내의 Task 들을 todayTask 에 저장
     public void updateTodayTask() {
         todayTask.clear();
         LocalDateTime now = LocalDateTime.now();
@@ -39,6 +45,8 @@ public class HandleMenu {
             }
         }
     }
+    
+    // 마감시간이 24 시간 이내의 과제들을 출력
     public void PrintTodayTask(){
         int i = 1;
         System.out.println("오늘 할 과제 목록 (24시간 이내 마감):");
@@ -76,32 +84,58 @@ public class HandleMenu {
                 fun.del3s();
                 return;
             }
-            System.out.printf("제출 기한 입력(yyyy-MM-dd HH:mm)>> ");
-            deadLine = sc.nextLine();
-            fun.del1s();
+            
+            deadLine = isCheckDeadLine();
+            // -1 을 입력받을 경우
             if(deadLine.equalsIgnoreCase("-1")) {
                 System.out.printf("3초 뒤 %s님의 페이지로 돌아갑니다.\n", user.getStudentName());
                 fun.del3s();
                 return;
             }
-            
-            // 형식에 맞게 데이터를 입력한 경우
-            // 형식에 맞지 않는 경우 예외 발생 --> 다시 입력
-            try {
+            // 정상적으로 입력받았을 경우 Task 를 저장
+            else {
             	Task task = new Task(userId,subject, title, deadLine);
             	taskRepository.save(task, user);
                 System.out.printf("%s 추가 완료\n",task.toString());
                 fun.del3s();
                 return;
-            } catch(DateTimeParseException e) {
-
-            	System.out.println("데이터 형식이 잘못되었습니다. 다시 입력해주세요");
-            	continue;
             }
             
         }
     }
+    // 날짜가 유효한 지 검사하는 메서드
+    public String isCheckDeadLine() {
 
+        while (true) {
+            System.out.printf("제출 기한 입력(yyyy-MM-dd HH:mm)>> ");
+            String deadLine = sc.nextLine();
+            fun.del1s();
+
+            // -1 입력 시 바로 반환
+            if (deadLine.equalsIgnoreCase("-1")) {
+                return "-1";
+            }
+
+            try {
+                LocalDateTime result = LocalDateTime.parse(deadLine, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+
+                
+                // 입력받은 날짜가 현재 시간 이전인 경우
+                if (result.isBefore(LocalDateTime.now())) {
+                    System.out.println("마감 기한은 현재 시간 이후여야 합니다. 다시 입력해주세요.");
+                } else {
+                    return deadLine; // 유효한 값이므로 반환
+                }
+                // 입력 형식에 맞지 않을 경우 예외 발생
+            } catch (DateTimeParseException e) {
+                System.out.println("날짜 형식 오류입니다. 형식: yyyy-MM-dd HH:mm 예: 2025-06-01 13:30");
+            }
+
+            System.out.println("돌아가려면 -1을 입력하세요.");
+        }
+    }
+    
+    
     // 옵션2. 과제 변경 메서드
     public void changeMenu() {
 
@@ -252,7 +286,7 @@ public class HandleMenu {
         while (true) {
         	updateTodayTask();
         	// menu() 메서드가 호출될 때 마감기한이 지난 메서드는 삭제
-        	taskRepository.removePastTasksAll(user);
+        	//taskRepository.removePastTasksAll(user);
             fun.clearConsole();
             System.out.printf("MOHANO - %s님의 페이지\n", user.getStudentName());
             System.out.printf("1. 과제 추가\n");

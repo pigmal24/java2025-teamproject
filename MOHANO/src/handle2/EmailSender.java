@@ -10,34 +10,49 @@ import java.util.Properties;
 public class EmailSender {
 
     // user, task 정보 받아 이메일 전송
-    public void sendUserTaskEmail(User user, List<Task> todayTask) {
+    public void sendUserTaskEmail(User user, List<Task> todayTask, List<Task> removedTask) {
         String senderEmail = user.getEmailAddress();
         String senderPassword = user.getSmtpPass();
         String receiverEmail = senderEmail;  // 자기 자신에게 이메일 발송
 
-        // 처음 로그인 / 과제 비었을때 -> 환영 이메일 (과제입력해주세요) (todaytask 가 null)
  
-        String subject; 
-        String body = "";
-        
-        if (todayTask == null || todayTask.isEmpty()) // list 
-        {
-        	subject = "환영합니다";
-        	body += "과제를 입력해주세요!";
-        	
+        String subject = "과제 알림입니다."; // 기본 제목
+        StringBuilder bodyBuilder = new StringBuilder();
+
+        System.out.println("todayTask = " + todayTask);
+        // 과제가 없는 경우
+        if (todayTask == null || todayTask.isEmpty()) {
+            bodyBuilder.append("과제가 없습니다!\n\n");
+        // 과제가 존재할 경우 해당 과제들을 builder 에 추가
+        } else {
+            bodyBuilder.append("24시간 이내 마감 과제:\n");
+            for(Task a : todayTask) {
+                bodyBuilder.append(
+                    "과목: " + a.getSubject() + "\n"
+                    + "과제: " + a.getTitle() + "\n"
+                    + "마감일: " + a.getDeadline().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + "\n\n"
+                );
+            }
+            bodyBuilder.append("기한 내에 꼭 제출해 주세요!\n\n");
+        }
+
+        // 기한이 지난 과제가 존재할 시
+        if (removedTask != null && !removedTask.isEmpty()) {
+            bodyBuilder.append("미제출 과제:\n");
+            for(Task a : removedTask) {
+                bodyBuilder.append(
+                    "과목: " + a.getSubject() + "\n"
+                    + "과제: " + a.getTitle() + "\n"
+                    + "마감일: " + a.getDeadline().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + "\n\n"
+                );
+            }
+            bodyBuilder.append("기한이 지난 과제입니다!\n");
         }
         
-        else {
-        	subject = "과제 알림입니다.";
-        	for(Task a : todayTask) {
-        		body += 
-        				"과목: " + a.getSubject() + "\n"
-        						+ "과제: " + a.getTitle() + "\n"
-        						+ "마감일: " + a.getDeadline().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + "\n\n";
-        		} // todaytask 과제가 출력됨
-            body += "기한 내에 꼭 제출해 주세요!\n";
-        	}
-        
+
+        // String 으로 변환 후 body 에 저장
+        String body = bodyBuilder.toString();
+        // 메세지 전송
         sendEmail(senderEmail, senderPassword, receiverEmail, subject, body);
     }
  

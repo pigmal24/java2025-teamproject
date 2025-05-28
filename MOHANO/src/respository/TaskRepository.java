@@ -39,7 +39,8 @@ import static connection.DBConnectionUtil.*;
 
         public TaskRepository() {
 
-            String sql = "SELECT COUNT(*) FROM task"; // user 테이블의 전체 행 수 세기
+        	// Task 테이블의 가장 큰 taskId 를 가져와 기본키로 설정
+            String sql = "SELECT MAX(taskId) FROM task"; 
             Connection con = null;
             PreparedStatement pstmt=  null;
             try {
@@ -49,8 +50,13 @@ import static connection.DBConnectionUtil.*;
 
                 // count 변수는 id를 구하기 위해 필요
                 // 행의 개수를 id 에 sequence 에 저장
+                // 데이터가 없을 경우
                 if(rs.next()) {
                     sequence = rs.getInt(1) + 1;
+                }
+                // 데이터가 있을 경우 가장 큰 taskId 에 +1 을 설정
+                else {
+                	sequence++;
                 }
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -174,10 +180,12 @@ import static connection.DBConnectionUtil.*;
         }
 
         // deadLine 이 지난 과제를 삭제하는 메서드
+        // 추가: 삭제되는 과제들을 이메일로 전송
         public List<Task> removePastTasksAll(User user) {
         	
         	String findSql =   "SELECT * FROM task where userId = ?";
         	String deleteSql = "DELETE FROM task where taskId = ?";
+        	
         	
         	// 삭제한 과제들을 저장
         	List<Task> removedTasks = new ArrayList<>();
@@ -215,6 +223,7 @@ import static connection.DBConnectionUtil.*;
         	}
         	return removedTasks;
         }
+        
         
         // taskId 에 해당하는 과제를 삭제하는 메서드
         public Task removeById(int taskId) {
