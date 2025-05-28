@@ -8,5 +8,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="C:/Users/성준/OneDrive/문서/GitHub/java2025-teamproject/MOHANO/lib/lombok.jar"/>
 	<classpathentry kind="lib" path="C:/Users/성준/OneDrive/문서/GitHub/java2025-teamproject/MOHANO/lib/mariadb-java-client-2.4.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/성준/OneDrive/문서/GitHub/java2025-teamproject/MOHANO/lib/activation-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/성준/OneDrive/문서/GitHub/java2025-teamproject/MOHANO/lib/javax.mail.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

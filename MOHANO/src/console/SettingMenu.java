@@ -5,11 +5,15 @@ import respository.UserRepository;
 
 import java.util.Scanner;
 
+import handle2.EmailSender;
+
 public class SettingMenu {
     private Scanner sc;
     Func fun;
 
     UserRepository userRepository = UserRepository.getInstance();
+    
+    EmailSender emailSender = new EmailSender();
     public SettingMenu(Scanner sc) {
         this.sc = sc;
         fun = new Func();
