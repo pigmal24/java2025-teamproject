@@ -1,43 +1,37 @@
-package handle2;
+package emailsender;
 
 import javax.mail.*;
-import javax.mail.internet.*;
-import java.time.*;
-import java.time.format.DateTimeFormatter;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 import java.util.Scanner;
-import java.util.concurrent.*;
-
-
-import java.util.Properties;
 
 public class EmailSender {
 
-    // user, task 정보 받아 이메일 전송
-    public void sendUserTaskEmail(User user, Task task) {
-        String senderEmail = user.getEmailAddress();
-        String senderPassword = user.getSmtpPass();
-        String receiverEmail = senderEmail;  // 자기 자신에게 이메일 발송
-
-        String subject = "[과제 안내] " + task.getTitle();
-        String body = "다음 과제가 등록되었습니다.\n"
-                    + "과목: " + task.getSubject() + "\n"
-                    + "과제: " + task.getTitle() + "\n"
-                    + "마감일: " + task.getDeadline().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + "\n\n"
-                    + "기한 내에 꼭 제출해 주세요!\n";
-
-        sendEmail(senderEmail, senderPassword, receiverEmail, subject, body);
-    }
-    
     public static void main(String[] args) {
-	
-    	new EmailSender().sendEmail(senderEmail, senderPassword, receiverEmail, subject, body);
+        Scanner scanner = new Scanner(System.in);
 
-	}
+        System.out.print("사용자 Gmail 주소: ");
+        String senderEmailAddress = scanner.nextLine();
+        
+        System.out.print("앱 비밀번호: ");
+        String senderEmailPassword = scanner.nextLine();
 
-	// 실제 이메일 전송 메서드
-    public void sendEmail(String senderEmailAddress, String senderEmailPassword,
-                          String receiverEmailAddress, String emailSubject, String emailContent) {
+        System.out.print("받는 Gmail 주소: ");
+        String receiverEmailAddress = scanner.nextLine();
+
+        System.out.print("이메일 제목: ");
+        String emailSubject = scanner.nextLine();
+
+        System.out.print("이메일 본문: ");
+        String emailContent = scanner.nextLine();
+
+        scanner.close();
+        
+        new EmailSender().sendEmail(senderEmailAddress, senderEmailPassword, receiverEmailAddress, emailSubject, emailContent);
+    }
+
+    public void sendEmail(String senderEmailAddress, String senderEmailPassword, String receiverEmailAddress, String emailSubject, String emailContent) {
 
         Properties props = new Properties();
 
@@ -59,7 +53,7 @@ public class EmailSender {
             message.setFrom(new InternetAddress(senderEmailAddress));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(receiverEmailAddress));
             message.setSubject(emailSubject);
-            message.setText(emailContent);
+            message.setText(emailContent); 
 
             Transport.send(message);
 
@@ -68,5 +62,4 @@ public class EmailSender {
             System.out.println("이메일 전송 실패: " + e.getMessage());
         }
     }
-
 }

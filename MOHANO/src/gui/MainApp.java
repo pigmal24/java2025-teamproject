@@ -11,7 +11,7 @@ public class MainApp extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("loginView.fxml"));
-			primaryStage.setTitle(MOHANO 로그인);
+			primaryStage.setTitle("MOHANO 로그인");
 			primaryStage.setScene(new Scene(root, 400, 300));
 			primaryStage.show();
 		} catch(Exception e) {
