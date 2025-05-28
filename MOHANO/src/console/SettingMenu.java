@@ -5,15 +5,11 @@ import respository.UserRepository;
 
 import java.util.Scanner;
 
-import handle2.EmailSender;
-
 public class SettingMenu {
     private Scanner sc;
     Func fun;
 
     UserRepository userRepository = UserRepository.getInstance();
-    
-    EmailSender emailSender = new EmailSender();
     public SettingMenu(Scanner sc) {
         this.sc = sc;
         fun = new Func();
@@ -79,7 +75,7 @@ public class SettingMenu {
         }
     }
 
-    public void signUpMenu() { //sql user table에다가 create하는 매소드 필요(ex: signUpUser)
+    public void signUpMenu() { 
         fun.clearConsole();
         System.out.printf("MOHANO - 회원가입 메뉴\n");
         System.out.printf("2025-05-20 Author: wnsgur\n");
@@ -95,13 +91,16 @@ public class SettingMenu {
         String email = sc.nextLine();
         fun.del1s();
 
+        System.out.println("앱 비밀번호 입력>> ");
+        String smtpPass = sc.nextLine();
+        
         // 객체 생성 후 입력한 값들 설정
         User user = new User();
 
         user.setSchoolNum(studentId);
         user.setStudentName(name);
         user.setEmailAddress(email);
-        user.setSmtpPass("");
+        user.setSmtpPass(smtpPass);
         userRepository.save(user);
         System.out.printf("회원가입 완료!\n");
         fun.del3s();

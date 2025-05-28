@@ -1,37 +1,50 @@
-package emailsender;
+package handle2;
 
 import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import javax.mail.internet.*;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Properties;
-import java.util.Scanner;
+
 
 public class EmailSender {
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+    // user, task 정보 받아 이메일 전송
+    public void sendUserTaskEmail(User user, List<Task> todayTask) {
+        String senderEmail = user.getEmailAddress();
+        String senderPassword = user.getSmtpPass();
+        String receiverEmail = senderEmail;  // 자기 자신에게 이메일 발송
 
-        System.out.print("사용자 Gmail 주소: ");
-        String senderEmailAddress = scanner.nextLine();
+        // 처음 로그인 / 과제 비었을때 -> 환영 이메일 (과제입력해주세요) (todaytask 가 null)
+ 
+        String subject; 
+        String body = "";
         
-        System.out.print("앱 비밀번호: ");
-        String senderEmailPassword = scanner.nextLine();
-
-        System.out.print("받는 Gmail 주소: ");
-        String receiverEmailAddress = scanner.nextLine();
-
-        System.out.print("이메일 제목: ");
-        String emailSubject = scanner.nextLine();
-
-        System.out.print("이메일 본문: ");
-        String emailContent = scanner.nextLine();
-
-        scanner.close();
+        if (todayTask == null || todayTask.isEmpty()) // list 
+        {
+        	subject = "환영합니다";
+        	body += "과제를 입력해주세요!";
+        	
+        }
         
-        new EmailSender().sendEmail(senderEmailAddress, senderEmailPassword, receiverEmailAddress, emailSubject, emailContent);
+        else {
+        	subject = "과제 알림입니다.";
+        	for(Task a : todayTask) {
+        		body += 
+        				"과목: " + a.getSubject() + "\n"
+        						+ "과제: " + a.getTitle() + "\n"
+        						+ "마감일: " + a.getDeadline().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + "\n\n";
+        		} // todaytask 과제가 출력됨
+            body += "기한 내에 꼭 제출해 주세요!\n";
+        	}
+        
+        sendEmail(senderEmail, senderPassword, receiverEmail, subject, body);
     }
+ 
 
-    public void sendEmail(String senderEmailAddress, String senderEmailPassword, String receiverEmailAddress, String emailSubject, String emailContent) {
+	// 실제 이메일 전송 메서드
+    public void sendEmail(String senderEmailAddress, String senderEmailPassword,
+                          String receiverEmailAddress, String emailSubject, String emailContent) {
 
         Properties props = new Properties();
 
@@ -53,7 +66,7 @@ public class EmailSender {
             message.setFrom(new InternetAddress(senderEmailAddress));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(receiverEmailAddress));
             message.setSubject(emailSubject);
-            message.setText(emailContent); 
+            message.setText(emailContent);
 
             Transport.send(message);
 
@@ -62,4 +75,5 @@ public class EmailSender {
             System.out.println("이메일 전송 실패: " + e.getMessage());
         }
     }
+
 }
