@@ -1,5 +1,6 @@
 package console;
 
+import handle2.EmailSender;
 import handle2.Task;
 import handle2.User;
 import respository.TaskRepository;
@@ -23,8 +24,12 @@ public class HandleMenu {
         this.sc = sc;
         fun = new Func();
         todayTask = new ArrayList<>();
+        updateTodayTask();
+        EmailSender es = new EmailSender();
+        es.sendUserTaskEmail(user, todayTask);
     }
-    public void updateAndPrintTodayTask() {
+    
+    public void updateTodayTask() {
         todayTask.clear();
         LocalDateTime now = LocalDateTime.now();
         for (Task a : taskRepository.findByUserIdTaskAll(user)) {
@@ -33,6 +38,8 @@ public class HandleMenu {
                 todayTask.add(a);
             }
         }
+    }
+    public void PrintTodayTask(){
         int i = 1;
         System.out.println("오늘 할 과제 목록 (24시간 이내 마감):");
         for (Task a : todayTask) {
@@ -41,6 +48,7 @@ public class HandleMenu {
             i++;
         }
     }
+        
     // 옵션1. 과제 추가 메서드
     public void addMenu() { 
         String subject; // 과목(subject)
@@ -242,7 +250,7 @@ public class HandleMenu {
 
         int ch;
         while (true) {
-        	
+        	updateTodayTask();
         	// menu() 메서드가 호출될 때 마감기한이 지난 메서드는 삭제
         	taskRepository.removePastTasksAll(user);
             fun.clearConsole();
@@ -252,7 +260,7 @@ public class HandleMenu {
             System.out.printf("3. 과제 삭제\n");
             System.out.printf("4. 과제 전체 확인\n");
             System.out.printf("5. 로그아웃\n");
-            updateAndPrintTodayTask();
+            PrintTodayTask();
             System.out.printf(">> ");
 
             ch = Integer.parseInt(sc.nextLine());
