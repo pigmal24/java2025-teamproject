@@ -139,4 +139,86 @@ public class  UserRepository {
         }
     }
 
+    // User 학번(schoolNum) 변경 메서드
+    public User updateSchoolNum(User user, String updateSchoolNum) {
+    	
+    	 String sql = "UPDATE user SET schoolNum = ? WHERE id = ?";
+    	 User updateUser = new User();
+    	 try {
+    		 Connection con = getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql);
+          
+             System.out.println("updateSchoolNum: " + updateSchoolNum);
+             System.out.println("userId: " + user.getId());
+             pstmt.setString(1, updateSchoolNum);
+             pstmt.setInt(2,  user.getId());
+             
+             pstmt.executeUpdate();
+             user.setSchoolNum(updateSchoolNum);
+    	 }  catch (SQLException e) {
+             throw new RuntimeException(e);
+         }
+    	 return updateUser;
+    }
+    
+    // User 이메일(emailAddress) 변경 메서드
+    public User updateEmailAddress(User user, String updateEmailAddress) {
+    	
+    	 String sql = "UPDATE user SET emailAddress = ? WHERE id = ?";
+    	 User updateUser = new User();
+    	 try {
+    		 Connection con = getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql);
+             
+             pstmt.setString(1, updateEmailAddress);
+             pstmt.setInt(2,  user.getId());
+             
+             pstmt.executeUpdate();
+             user.setEmailAddress(updateEmailAddress);
+    	 }  catch (SQLException e) {
+             throw new RuntimeException(e);
+         }
+    	 return updateUser;
+    }
+    
+    // User smtpPass 변경 메서드
+    public User updateSmtpPass(User user, String updateSmtpPass) {
+    	
+    	 String sql = "UPDATE user SET smtpPass = ? WHERE id = ?";
+    	 User updateUser = new User();
+    	 try {
+    		 Connection con = getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql);
+             
+             pstmt.setString(1, updateSmtpPass);
+             pstmt.setInt(2,  user.getId());
+             
+             pstmt.executeUpdate();
+             user.setSmtpPass(updateSmtpPass);
+    	 }  catch (SQLException e) {
+             throw new RuntimeException(e);
+         }
+    	 return updateUser;
+    }
+    
+    // User 이름(studentName) 변경 메서드
+  
+    public User updateStudentName(User user, String updateStudentName) {
+    	
+    	 String sql = "UPDATE user SET studentName = ? WHERE id = ?";
+    	 User updateUser = new User();
+    	 try {
+    		 Connection con = getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql);
+             
+             pstmt.setString(1, updateStudentName);
+             pstmt.setInt(2,  user.getId());
+             
+             pstmt.executeUpdate();
+             user.setStudentName(updateStudentName);
+    	 }  catch (SQLException e) {
+             throw new RuntimeException(e);
+         }
+    	 return updateUser;
+    }
 }

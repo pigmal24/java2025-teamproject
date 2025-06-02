@@ -4,6 +4,7 @@ import handle2.EmailSender;
 import handle2.Task;
 import handle2.User;
 import respository.TaskRepository;
+import respository.UserRepository;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -19,7 +20,7 @@ public class HandleMenu {
     private List<Task> todayTask = new ArrayList();
 
     TaskRepository taskRepository = TaskRepository.getInstance();
-
+    UserRepository userRepository = UserRepository.getInstance();
     public HandleMenu(User loginUser, Scanner sc) {
         this.user = loginUser;
         this.sc = sc;
@@ -280,6 +281,98 @@ public class HandleMenu {
         }
 
     }
+    
+    // 옵션5.
+    // 회원정보 수정
+    public void editUser() {
+    	
+    	  int op; // 수정할 옵션을 입력받은 변수
+    	  User updateUser;
+    	  while (true) {
+              fun.clearConsole();
+              System.out.printf("MOHANO - %s님의 회원 정보 수정를 수정합니다.\n", user.getStudentName());
+              System.out.printf("원하시는 옵션을 입력해주세요.\n");
+              System.out.printf("1. 학번, 2. 이메일, 3. smtpPass 4. 이름 5. 회원 정보 출력\n");
+              System.out.printf("과제 메뉴로 돌아가려면 -1을 입력하세요.\n");
+              System.out.printf(">> ");
+
+              op = Integer.parseInt(sc.nextLine());
+              
+              // -1 입력 시 editUser() 메서드 탈출
+              if(op == -1) {
+            	  break;
+              }
+              fun.del1s();
+              switch (op) {
+              	  // 학번(schoolNum) 수정
+                  case 1:
+                	  System.out.println("돌아가려면 -1 을 입력해주세요.");
+                      System.out.printf("새로운 학번을 입력해주세요 >> ");
+                      String updateSchoolNum = sc.nextLine();
+                      
+                      // -1 입력 시 break;
+                      if(updateSchoolNum.equals("-1")) 
+                    	  break;
+                      updateUser = userRepository.updateSchoolNum(user, updateSchoolNum);
+                      System.out.printf("[%s] 학번 수정 완료\n", user.getSchoolNum());
+                      fun.del1s();
+                      break;
+                  // 옵션2. 이메일(emailAddress) 변경
+                  case 2:
+                	  System.out.println("돌아가려면 -1 을 입력해주세요.");
+                      System.out.printf("새로운 이메일을 입력해주세요>> ");
+                      String updateEmailAddress = sc.nextLine();
+                      // -1 입력 시 break;
+                      if(updateEmailAddress.equals("-1")) 
+                    	  break;
+                      updateUser = userRepository.updateEmailAddress(user, updateEmailAddress);
+                      System.out.printf("[%s] 이메일 수정 완료\n", user.getEmailAddress());
+                      fun.del1s();
+                      break;
+                  // 옵션3. smtpPass 수정
+                  case 3:
+                	  System.out.println("돌아가려면 -1 을 입력해주세요.");
+                	  System.out.printf("새로운 smtpPass 번호 16자리를 입력해주세요>> ");
+                      String updateSmtpPass = sc.nextLine();
+                      // -1 입력 시 break;
+                      if(updateSmtpPass.equals("-1")) 
+                    	  break;
+                      // smtpPass 의 길이가 16자리가 아니면 실패
+                      if(updateSmtpPass.length() != 16) {
+                    	  System.out.println("stmpPass 는 16자리입니다. 처음으로 돌아가 다시 입력해주세요..");
+                    	  break;
+                      }
+                	  updateUser = userRepository.updateSmtpPass(user, updateSmtpPass);
+                      System.out.printf("[%s] smtpPass 수정 완료\n", user.getSmtpPass());
+                      fun.del1s();
+                      break;
+                     
+                      
+                  // 옵션4. 이름(studentName) 수정
+                  case 4:
+                	  System.out.println("돌아가려면 -1 을 입력해주세요.");
+                	  System.out.printf("새로운 이름을 입력해주세요>> ");
+                      String updateStudentName = sc.nextLine();
+                      // -1 입력 시 break;
+                      if(updateStudentName.equals("-1")) 
+                    	  break;
+                      updateUser = userRepository.updateStudentName(user, updateStudentName);
+                      System.out.printf("[%s] 이름 수정 완료\n", user.getStudentName());
+                      fun.del1s();
+                      break;
+                  // 옵션5: 회원 정보 출력
+                  case 5:
+                	  System.out.printf("%s님의 정보를 출력합니다.\n", user.getStudentName());
+                	  System.out.printf("학번: %s, 이메일: %s, smtpPass: %s\n", 
+                			  user.getSchoolNum(), user.getEmailAddress(), user.getSmtpPass());
+                	  break;
+                  case -1:
+                      System.out.printf("index 선택 화면으로 돌아갑니다.\n");
+                      fun.del3s();
+                      return;
+              }
+          }
+    }
     public void menu() {
 
         int ch;
@@ -293,7 +386,8 @@ public class HandleMenu {
             System.out.printf("2. 과제 수정\n");
             System.out.printf("3. 과제 삭제\n");
             System.out.printf("4. 과제 전체 확인\n");
-            System.out.printf("5. 로그아웃\n");
+            System.out.printf("5. 회원정보수정\n");
+            System.out.println("6. 로그아웃\n");
             PrintTodayTask();
             System.out.printf(">> ");
 
@@ -315,7 +409,11 @@ public class HandleMenu {
                 case 4 : 
                 	showAllMenu();
                 	break;
-                case 5: 
+                case 5:
+                    // 옵션5. 회원 정보 수정
+                	editUser();
+                	break;
+                case 6: 
                     System.out.println("3초 뒤 로그아웃합니다.");
                     fun.del3s();
                     return;
@@ -324,6 +422,5 @@ public class HandleMenu {
                     fun.del3s();
             }
         }
-
     }
 }
