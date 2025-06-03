@@ -1,6 +1,5 @@
 package handle2;
 
-import lombok.*;
 
 /**
  * @Author : 2023007915 김준혁
@@ -10,7 +9,7 @@ import lombok.*;
  * @Todo_List : sql 사용시, 데이터 받아오는 클래스(맴버만)으로 만든 다음, 상속받아서 해볼 예정
  */
 
-@Data
+
 public class User { // 실제로 생성하고, SQL에서 읽어오는 객체, hand로 downcasting해서 수정, 삭제, 추가 가능
 
 	protected int id;

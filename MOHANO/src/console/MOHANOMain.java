@@ -1,5 +1,9 @@
 package console;
 
+import static connection.MakeTable.*;
+
+import java.util.Scanner;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -20,6 +24,8 @@ public class MOHANOMain extends Application {
    }
 
    public static void main(String[] args) {
+	   
+	  checkTable();
       launch(args);
    }
 }
