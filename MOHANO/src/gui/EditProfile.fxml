@@ -14,7 +14,7 @@
            <Font name="System Bold" size="32.0" />
         </font>
      </Text>
-     <Text layoutX="237.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign up">
+     <Text layoutX="209.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="edit profile">
         <font>
            <Font name="System Bold" size="50.0" />
         </font>
@@ -39,7 +39,7 @@
            <Font size="18.0" />
         </font>
      </TextField>
-     <Button alignment="CENTER" graphicTextGap="2.0" layoutX="152.0" layoutY="324.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="295.0" text="sign up">
+     <Button alignment="CENTER" graphicTextGap="2.0" layoutX="152.0" layoutY="324.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="295.0" text="save info">
         <font>
            <Font size="20.0" />
         </font>

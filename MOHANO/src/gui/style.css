@@ -18,6 +18,12 @@
 	-fx-font-fill: #222;
 }
 
+.text {
+	-fx-font-family: 'Pretendard', 'Noto Sans KR', 'sans-serif';
+	-fx-font-size: 12px;
+	-fx-font-fill: #222;
+}
+
 .label.heading {
 	-fx-font-size: 24px;
 	-fx-font-fill: #0078d7;
