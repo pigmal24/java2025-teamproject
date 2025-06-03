@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="20" alignment="CENTER" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="gui.StartController" stylesheets="@style.css">
+	<Label text = "과제 안 하고" styleClass="slogan"/>
+	<Label text = "MOHANO" styleClass="logo"/>
+</VBox>

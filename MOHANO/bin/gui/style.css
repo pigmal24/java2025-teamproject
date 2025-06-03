@@ -1,15 +1,45 @@
-.title {
-	-fx-font-size: 20px;
+@font-face {
+	font-family: 'Pretendard';
+	src: url('Pretendard-Regular.ttf');
+}
+
+@font-face {
+	font-family: 'HeadingFont';
+	src: url('Pretendard-Bold.ttf');
+}
+
+.root {
+	-fx-font-family: 'Pretendard', 'Noto Sans KR', 'sans-serif';
+	-fx-background-color: #ffffff;
+}
+
+.label {
+	-fx-font-size: 16px;
+	-fx-font-fill: #222;
+}
+
+.label.heading {
+	-fx-font-size: 24px;
+	-fx-font-fill: #0078d7;
+	-fx-font-family: 'HeadingFont';
 	-fx-font-weight: bold;
 }
 
-.header {
-	-fx-font-size: 18px;
-	-fx-background-color: #f4f4f4;
-	-fx-padding: 10px;
+.button {
+	-fx-background-color: #cfeaff;
+	-fx-text-fill: black;
+	-fx-background-radius: 6;
+	-fx-padding: 6 12
 }
 
-.button {
-	-fx-background-color: #4682B4;
-	-fx-text-fill: white;
+.button.logo {
+	-fx-background-color: transparent;
+	-fx-border-color: transparent;
+	-fx-padding: 0;
+}
+
+.text-field, .password-field {
+	-fx-backgound-radius: 4;
+	-fx-border-radius: 4;
+	-fx-padding: 4;
 }
