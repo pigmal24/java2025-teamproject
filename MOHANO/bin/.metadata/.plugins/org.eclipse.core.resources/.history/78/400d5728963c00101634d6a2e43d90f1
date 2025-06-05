@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="gui.LoginController" sytlesheets="@style.css">
+	<Label text = "MONAHO login" sytleClass="title"/>
+	<TextField fx:id="emailField" promptText="이메일 주소"/>
+	<PasswordField fx:id="passwordField" promptText="이메일 주소"/>
+	<HBox spacing="10" alighnment="CENTER">
+		<Button text="Sign in" onAction="#handleLogin"/>
+		<Button text="Sign up" onAction="handleSignup"/>
+	</HBox>
+	
+	<Label fx:id="errorLabel" textFill="red"/>
+</VBox>

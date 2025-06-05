@@ -1,0 +1,43 @@
+package gui;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.Parent;
+import javafx.stage.Stage;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import console.SettingMenu;
+
+public class LoginController {
+	@FXML private TextField emailField;
+	@FXML private PasswordField passwordField;
+	
+	@FXML
+	private void handleLogin() {
+		String email = emailField.getText();
+		String password = passwordField.getText();
+		
+		boolean success = SettingMenu.LogInMenu();
+		
+		if (success) {
+			try {
+				Parent root = FXMLLoader.load(getClass().getResource("TaskMenuView.fxml"));
+				Stage stage = (Stage) emailField.getScene().getWindow();
+				stage.setSecene(new Scene(root));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		else {
+			errorLabel.setText("로그인 실패 이메일 또는 비밀번호를 정확하게 입력해주세요.");
+		}
+		
+//		@FXML
+//		private void handleSignup() {
+//			
+//		}
+	}
+}
