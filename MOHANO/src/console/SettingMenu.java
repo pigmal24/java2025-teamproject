@@ -91,8 +91,14 @@ public class SettingMenu {
         String email = sc.nextLine();
         fun.del1s();
 
-        System.out.println("앱 비밀번호 입력>> ");
+        System.out.println("smtp 비밀번호 입력>> ");
         String smtpPass = sc.nextLine();
+        
+        System.out.println("lms 아이디 입력>> ");
+        String lmsId = sc.nextLine();
+        
+        System.out.println("lms 비밀번호 입력>> ");
+        String lmsPass = sc.nextLine();
         
         // 객체 생성 후 입력한 값들 설정
         User user = new User();
@@ -101,7 +107,9 @@ public class SettingMenu {
         user.setStudentName(name);
         user.setEmailAddress(email);
         user.setSmtpPass(smtpPass);
-        userRepository.save(user);
+        user.setLmsId(lmsId);
+        user.setLmsPass(lmsPass);
+        //userRepository.save(user); 수정 필요
         System.out.printf("회원가입 완료!\n");
         fun.del3s();
         return;

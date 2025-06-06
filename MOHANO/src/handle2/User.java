@@ -17,6 +17,8 @@ public class User { // 실제로 생성하고, SQL에서 읽어오는 객체, ha
     protected String emailAddress; // 이메일 주소
     protected String smtpPass;
     protected String studentName; // 이름
+    protected String lmsId; // lms id
+    protected String lmsPass; //lms password
 
     
     // 생성자
@@ -51,6 +53,18 @@ public class User { // 실제로 생성하고, SQL에서 읽어오는 객체, ha
 	}
 	public void setStudentName(String studentName) {
 		this.studentName = studentName;
+	}
+	public String getLmsId() {
+		return lmsId;
+	}
+	public void setLmsId(String lmsId) {
+		this.lmsId = lmsId;
+	}
+	public String getLmsPass() {
+		return lmsPass;
+	}
+	public void setLmsPass(String lmsPass) {
+		this.lmsPass = lmsPass;
 	}
 	
 }

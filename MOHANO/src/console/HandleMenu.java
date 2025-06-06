@@ -1,8 +1,6 @@
 package console;
 
-import handle2.EmailSender;
-import handle2.Task;
-import handle2.User;
+import handle2.*;
 import respository.TaskRepository;
 import respository.UserRepository;
 
@@ -18,6 +16,7 @@ public class HandleMenu {
     private User user;
     private Scanner sc;
     private Func fun;
+    private List<Task> LMSTask = new ArrayList();
     private List<Task> todayTask = new ArrayList();
 
     TaskRepository taskRepository = TaskRepository.getInstance();
@@ -53,6 +52,15 @@ public class HandleMenu {
         int i = 1;
         System.out.println("오늘 할 과제 목록 (24시간 이내 마감):");
         for (Task a : todayTask) {
+            System.out.printf("[%2d]: ",i);
+            System.out.println(a);
+            i++;
+        }
+    }
+    public void PrintLMSTask() {
+    	int i = 1;
+    	System.out.println("lms 등록 과제 목록(갱신: "+LMSTask.get(LMSTask.size() - 1).getDeadline()+"):");
+        for (Task a : LMSTask) {
             System.out.printf("[%2d]: ",i);
             System.out.println(a);
             i++;
@@ -293,7 +301,7 @@ public class HandleMenu {
               fun.clearConsole();
               System.out.printf("MOHANO - %s님의 회원 정보 수정를 수정합니다.\n", user.getStudentName());
               System.out.printf("원하시는 옵션을 입력해주세요.\n");
-              System.out.printf("1. 학번, 2. 이메일, 3. smtpPass 4. 이름 5. 회원 정보 출력\n");
+              System.out.printf("1. 학번, 2. 이메일, 3. smtpPass 4. 이름 5. lms 아이디 6. lms 비밀번호 7. 회원 정보 출력\n");
               System.out.printf("과제 메뉴로 돌아가려면 -1을 입력하세요.\n");
               System.out.printf(">> ");
 
@@ -361,16 +369,41 @@ public class HandleMenu {
                       System.out.printf("[%s] 이름 수정 완료\n", user.getStudentName());
                       fun.del1s();
                       break;
-                  // 옵션5: 회원 정보 출력
-                  case 5:
+                  case 5://수정 필요
+                	  System.out.println("돌아가려면 -1 을 입력해주세요.");
+                	  System.out.printf("새로운 lms 아이디를 입력해주세요>> ");
+                      String updateLmsId = sc.nextLine();
+                      // -1 입력 시 break;
+                      if(updateLmsId.equals("-1")) 
+                    	  break;
+                      //updateUser = userRepository.updateStudentName(user, updateStudentName); 수정 필요
+                      System.out.printf("[%s] lms 아이디 수정 완료\n", user.getLmsId());
+                      fun.del1s();
+                      break;
+                  case 6://수정 필요
+                	  System.out.println("돌아가려면 -1 을 입력해주세요.");
+                	  System.out.printf("새로운 lms 아이디를 입력해주세요>> ");
+                      String updateLmsPass = sc.nextLine();
+                      // -1 입력 시 break;
+                      if(updateLmsPass.equals("-1")) 
+                    	  break;
+                      //updateUser = userRepository.updateStudentName(user, updateLmsPass); 수정 필요
+                      System.out.printf("[%s] lms 비밀번호 수정 완료\n", user.getLmsPass());
+                      fun.del1s();
+                      break;
+                  // 옵션7: 회원 정보 출력
+                  case 7:
                 	  System.out.printf("%s님의 정보를 출력합니다.\n", user.getStudentName());
-                	  System.out.printf("학번: %s, 이메일: %s, smtpPass: %s\n", 
-                			  user.getSchoolNum(), user.getEmailAddress(), user.getSmtpPass());
+                	  System.out.printf("학번: %s, 이메일: %s, smtpPass: %s lms 아이디: %s, lms 비밀번호: %s\n", 
+                			  user.getSchoolNum(), user.getEmailAddress(), user.getSmtpPass(), user.getLmsId(), user.getLmsPass());
                 	  break;
                   case -1:
                       System.out.printf("index 선택 화면으로 돌아갑니다.\n");
                       fun.del3s();
                       return;
+                  default:
+                      System.out.println("잘못된 메뉴 선택입니다. 다시 입력해주세요 (1~7)");
+                      fun.del3s();
               }
           }
     }
@@ -378,6 +411,8 @@ public class HandleMenu {
 
         int ch;
         while (true) {
+        	LmsCrawling ls = new LmsCrawling(user.getLmsId(),user.getLmsPass());
+        	LMSTask = ls.crawling(taskRepository.findByUserIdTaskAll(user).size()-1);
         	updateTodayTask();
         	// menu() 메서드가 호출될 때 마감기한이 지난 메서드는 삭제
         	//taskRepository.removePastTasksAll(user);
@@ -390,6 +425,7 @@ public class HandleMenu {
             System.out.printf("5. 회원정보수정\n");
             System.out.println("6. 로그아웃\n");
             PrintTodayTask();
+            PrintLMSTask();
             System.out.printf(">> ");
 
             ch = Integer.parseInt(sc.nextLine());
