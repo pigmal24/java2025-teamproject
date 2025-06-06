@@ -26,6 +26,9 @@ public class MOHANOMain extends Application {
    public static void main(String[] args) {
 	   
 	  checkTable();
-      launch(args);
+	  Scanner scanner=  new Scanner(System.in);
+	  SettingMenu settineMenu = new SettingMenu(scanner);
+	  settineMenu.mainMenu();
+      //launch(args);
    }
 }

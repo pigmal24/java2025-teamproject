@@ -1,9 +1,13 @@
 package console;
 
+import handle2.LmsCrawling;
+import handle2.Task;
 import handle2.User;
 import respository.UserRepository;
 
+import java.util.List;
 import java.util.Scanner;
+
 
 public class SettingMenu {
     private Scanner sc;
@@ -62,6 +66,13 @@ public class SettingMenu {
             User user = userRepository.findByLoginId(studentId).filter(m -> m.getEmailAddress().equals(email)).orElse(null);
             if(user != null) {
                 System.out.println("로그인 성공");
+                
+                /* 크롤링 테스트
+                 */
+                System.out.println(user.getLmsId() + " " + user.getLmsPass());
+                LmsCrawling test = new LmsCrawling(user.getLmsId(), user.getLmsPass());
+                List<Task> list= test.crawling(100);
+                //
                 HandleMenu handle = new HandleMenu(user,sc);
                 handle.menu();
                 break;
@@ -109,8 +120,9 @@ public class SettingMenu {
         user.setSmtpPass(smtpPass);
         user.setLmsId(lmsId);
         user.setLmsPass(lmsPass);
-        //userRepository.save(user); 수정 필요
+        userRepository.save(user); 
         System.out.printf("회원가입 완료!\n");
+        
         fun.del3s();
         return;
     }

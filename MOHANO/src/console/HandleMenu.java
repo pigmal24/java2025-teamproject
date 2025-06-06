@@ -8,6 +8,9 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.Scanner;
+
+import console.Func;
+
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
