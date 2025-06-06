@@ -1,7 +1,5 @@
 package respository;
 
-
-
 import handle2.User;
 
 import java.sql.*;
@@ -51,8 +49,8 @@ public class  UserRepository {
     // 회원가입 메서드
     public void save(User user) {
 
-        String sql = "insert into user(id,schoolNum,emailAddress,smtpPass,studentName) " +
-                "values(?,?,?,?,?)";
+        String sql = "insert into user(id,schoolNum,emailAddress,smtpPass,studentName, lmsId, lmsPass) " +
+                "values(?,?,?,?,?,?,?)";
 
         Connection con = null;
         PreparedStatement pstmt=  null;
@@ -65,6 +63,8 @@ public class  UserRepository {
             pstmt.setString(3,user.getEmailAddress());
             pstmt.setString(4, user.getSmtpPass());
             pstmt.setString(5, user.getStudentName());
+            pstmt.setString(6, user.getLmsId());
+            pstmt.setString(7, user.getLmsPass());
             pstmt.executeUpdate();
             con.close();
         } catch (SQLException e) {
@@ -129,6 +129,8 @@ public class  UserRepository {
                 user.setEmailAddress(rs.getString("emailAddress"));
                 user.setSmtpPass(rs.getString("smtpPass"));
                 user.setStudentName(rs.getString("studentName"));
+                user.setLmsId(rs.getString("lmsId"));
+                user.setLmsPass(rs.getString("lmsPass"));
                 users.add(user);
             }
             System.out.println("---users 반환 성공---");

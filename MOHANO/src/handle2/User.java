@@ -1,6 +1,5 @@
 package handle2;
 
-
 public class User { // 실제로 생성하고, SQL에서 읽어오는 객체, hand로 downcasting해서 수정, 삭제, 추가 가능
 
 	protected int id;

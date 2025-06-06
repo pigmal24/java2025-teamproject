@@ -36,15 +36,17 @@ public  class MakeTable {
 
 			// 테이블이 존재하지 않을 경우 테이블 생성
 			if (!rsUser.next()) {
-				String createUserTable = """
-						    CREATE TABLE user (
-						        id INT PRIMARY KEY,
-						        schoolNum VARCHAR(20),
-						        emailAddress VARCHAR(100),
-						        smtpPass VARCHAR(100),
-						        studentName VARCHAR(50)
-						    )
-						""";
+				  String createUserTable = """
+				            CREATE TABLE user (
+				                id INT PRIMARY KEY,
+				                schoolNum VARCHAR(20),
+				                emailAddress VARCHAR(100),
+				                smtpPass VARCHAR(100),
+				                studentName VARCHAR(50),
+				                lmsId VARCHAR(50),
+				                lmsPass VARCHAR(50)
+				            );
+				        """;
 				pstmt = con.prepareStatement(createUserTable);
 				pstmt.executeUpdate();
 
