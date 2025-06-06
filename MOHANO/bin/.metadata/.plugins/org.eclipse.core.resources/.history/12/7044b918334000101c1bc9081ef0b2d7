@@ -1,9 +1,0 @@
-package gui;
-
-import javafx.fxml.FXML;
-
-public class ModifyTaskController {
-	public void initalize() {
-		
-	}
-}

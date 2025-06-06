@@ -1,1 +1,0 @@
-java -cp "MOHANO.jar:lib/*" console.MOHANOMain
