@@ -70,8 +70,6 @@ public class SettingMenu {
                 /* 크롤링 테스트
                  */
                 System.out.println(user.getLmsId() + " " + user.getLmsPass());
-                LmsCrawling test = new LmsCrawling(user.getLmsId(), user.getLmsPass());
-                List<Task> list= test.crawling(100);
                 //
                 HandleMenu handle = new HandleMenu(user,sc);
                 handle.menu();

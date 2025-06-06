@@ -28,7 +28,8 @@ public class HandleMenu {
         this.user = loginUser;
         this.sc = sc;
         fun = new Func();
-        
+    	LmsCrawling ls = new LmsCrawling(user.getLmsId(),user.getLmsPass());
+    	LMSTask = ls.crawling(taskRepository.findByUserIdTaskAll(user).size()-1);
         /*
          * 기한이 지난 과제들을 removedTask 에 저장
          */
@@ -62,10 +63,10 @@ public class HandleMenu {
     }
     public void PrintLMSTask() {
     	int i = 1;
-    	System.out.println("lms 등록 과제 목록(갱신: "+LMSTask.get(LMSTask.size() - 1).getDeadline()+"):");
+    	System.out.println("lms 등록 과제 목록(표시 기한: "+LMSTask.get(LMSTask.size() - 1).getDeadline()+"):");
         for (Task a : LMSTask) {
             System.out.printf("[%2d]: ",i);
-            System.out.println(a);
+            System.out.println("과목: " + a.getSubject() + ", 과제: " + a.getTitle() + ", 제출기한: " + a.getDeadline().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
             i++;
         }
     }
@@ -414,8 +415,6 @@ public class HandleMenu {
 
         int ch;
         while (true) {
-        	LmsCrawling ls = new LmsCrawling(user.getLmsId(),user.getLmsPass());
-        	LMSTask = ls.crawling(taskRepository.findByUserIdTaskAll(user).size()-1);
         	updateTodayTask();
         	// menu() 메서드가 호출될 때 마감기한이 지난 메서드는 삭제
         	//taskRepository.removePastTasksAll(user);

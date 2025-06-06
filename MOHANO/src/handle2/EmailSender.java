@@ -18,8 +18,6 @@ public class EmailSender {
  
         String subject = "과제 알림입니다."; // 기본 제목
         StringBuilder bodyBuilder = new StringBuilder();
-
-        System.out.println("todayTask = " + todayTask);
         // 과제가 없는 경우
         if (todayTask == null || todayTask.isEmpty()) {
             bodyBuilder.append("과제가 없습니다!\n\n");
@@ -87,7 +85,7 @@ public class EmailSender {
 
             System.out.println("이메일 전송 완료 → " + receiverEmailAddress);
         } catch (MessagingException e) {
-            System.out.println("이메일 전송 실패: " + e.getMessage());
+            System.out.println("이메일 전송 실패: 메일 주소와 앱 비밀번호를 확인해주세요.");//e.getMessage());
         }
     }
 

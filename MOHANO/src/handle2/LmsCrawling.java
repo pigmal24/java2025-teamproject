@@ -74,6 +74,7 @@ public class LmsCrawling {
     }
 	public ArrayList<Task> crawling(int id){ // id = ArrayList.size()-1;
 		ArrayList<Task> taskInfos = null;
+		int idLMS = id;
         // WebDriverManager를 사용해 크롬 드라이버 설정
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
@@ -145,8 +146,8 @@ public class LmsCrawling {
                     	continue;
                     }
                     title = title.replaceFirst("^(과제|행사|퀴즈)\\s*", "").trim();
-                    id++;
-                    taskInfos.add(new Task(id,course,title,parseKoreanDateTimeToFormatted(deadline)));
+                    idLMS++;
+                    taskInfos.add(new Task(idLMS,course,title,parseKoreanDateTimeToFormatted(deadline)));
                 } catch (Exception e) {
                 }
             }
