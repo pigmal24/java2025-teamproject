@@ -16,7 +16,7 @@ public class EmailSender {
         String receiverEmail = senderEmail;  // 자기 자신에게 이메일 발송
 
  
-        String subject = "과제 알림입니다."; // 기본 제목
+        String subject = "[MOHANO] 과제 알림입니다."; // 기본 제목
         StringBuilder bodyBuilder = new StringBuilder();
         // 과제가 없는 경우
         if (todayTask == null || todayTask.isEmpty()) {
