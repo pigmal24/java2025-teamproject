@@ -10,10 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
 
-public class MOHANOMain{ //extends Application {
-	/*
+public class MOHANOMain extends Application {
    @Override
-   
    public void start(Stage primaryStage) {
       try {
          Parent root = FXMLLoader.load(getClass().getResource("/gui/home.fxml"));
@@ -24,11 +22,13 @@ public class MOHANOMain{ //extends Application {
          e.printStackTrace();
       }
    }
-*/
+
    public static void main(String[] args) {
-		  checkTable();
-		  Scanner scanner=  new Scanner(System.in);
-		  SettingMenu settineMenu = new SettingMenu(scanner);
-		  settineMenu.mainMenu();
+	   
+	  checkTable();
+	  Scanner scanner=  new Scanner(System.in);
+	  SettingMenu settineMenu = new SettingMenu(scanner);
+	  settineMenu.mainMenu();
+      //launch(args);
    }
 }
