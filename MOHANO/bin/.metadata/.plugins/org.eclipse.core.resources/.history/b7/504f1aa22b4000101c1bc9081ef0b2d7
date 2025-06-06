@@ -1,0 +1,36 @@
+package gui;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.collections.*;
+import respository.TaskRepository;
+
+public class TaskMenuController {
+	@FXML private ListView<String> taskListView;
+	private ObservableList<String> taskList;
+
+	@FXML
+	public void initialize() {
+		taskList = FXCollections.observableArrayList();
+		taskListView.setItems(taskList);
+
+		for (String task : TaskRepository.getTasksByUserId(Session.getUserId())) {
+			taskList.add(task);
+		}
+	}
+
+	@FXML
+	private void addTask() {
+
+	}
+
+	@FXML
+	private void editTask() {
+
+	}
+
+	@FXML
+	private void deleteTask() {
+
+	}
+}

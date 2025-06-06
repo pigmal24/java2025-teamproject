@@ -1,0 +1,9 @@
+package gui;
+
+import javafx.fxml.FXML;
+
+public class HomeController {
+	public void initalize() {
+		
+	}
+}
