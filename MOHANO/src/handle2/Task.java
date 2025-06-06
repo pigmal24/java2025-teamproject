@@ -4,10 +4,6 @@ package handle2;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-
-
-
-
 //@Data
 public class Task {
 
@@ -17,10 +13,10 @@ public class Task {
     private String subject;
     private String title;
 	private LocalDateTime deadline;  // 시간까지 포함
-
-    public Task() {
-    }
-
+	//기본 생성자
+	public Task() {
+		
+	}
     public Task(int userId, String subject, String title, String deadLine) {
         this.userId = userId;
         this.subject = subject;
@@ -67,7 +63,6 @@ public class Task {
     
     public void setDeadline(String deadlineStr) {
         this.deadline = LocalDateTime.parse(deadlineStr, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        //System.out.println("제출 기한 수정 완료");
     }
     public LocalDateTime getDeadline() {
     	return deadline;
