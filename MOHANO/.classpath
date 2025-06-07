@@ -9,6 +9,7 @@
 	<classpathentry kind="lib" path="lib/activation-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/javafx.base.jar"/>
 	<classpathentry kind="lib" path="lib/javafx.controls.jar"/>
+	<classpathentry kind="lib" path="lib/javafx.fxml.jar"/>
 	<classpathentry kind="lib" path="lib/javafx.graphics.jar"/>
 	<classpathentry kind="lib" path="lib/javafx.media.jar"/>
 	<classpathentry kind="lib" path="lib/javafx.properties"/>
