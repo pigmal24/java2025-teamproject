@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 
 public class SignInAndUpController {
 	@FXML
-	public void initalize() {
+	public void initialize() {
 		
 	}
 }

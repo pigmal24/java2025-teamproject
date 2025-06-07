@@ -14,7 +14,7 @@ public class MOHANOMain extends Application {
    @Override
    public void start(Stage primaryStage) {
       try {
-         Parent root = FXMLLoader.load(getClass().getResource("/gui/home.fxml"));
+         Parent root = FXMLLoader.load(getClass().getResource("/gui/Startview.fxml"));
          primaryStage.setTitle("MOHANO 로그인");
          primaryStage.setScene(new Scene(root, 600, 400));
          primaryStage.show();
