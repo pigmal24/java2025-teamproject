@@ -39,6 +39,21 @@ public class SignUpController {
     @FXML
     private Button mohanoButton;
 
+    @FXML
+    private Button editProfileButton;
+
+    // "edit profile" 버튼 클릭 시 실행
+    @FXML
+    public void handleEditProfile() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/gui/EditProfile.fxml"));
+            Stage stage = (Stage) editProfileButton.getScene().getWindow();
+            stage.setScene(new Scene(root, 600, 450));
+            stage.setTitle("Edit Profile");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     // 회원가입 버튼 눌렀을 때 실행됨
     @FXML
     private void handleSignUp() {
@@ -47,6 +62,9 @@ public class SignUpController {
         String email = emailField.getText().trim();
         String smtpPass = smtpPassField.getText().trim();
         
+        // 추가 부분
+        String lmsId = lmsIdField.getText().trim();
+        String lmsPass = lmsPassField.getText().trim();
 
         // 간단한 필수 입력 체크
         if (studentId.isEmpty() || name.isEmpty() || email.isEmpty()) {
@@ -63,6 +81,9 @@ public class SignUpController {
         user.setStudentName(name);
         user.setEmailAddress(email);
         user.setSmtpPass(smtpPass);
+        // 추가
+        user.setLmsId(lmsId);
+        user.setLmsPass(lmsPass);
       
         UserRepository.getInstance().save(user);
 

@@ -223,4 +223,35 @@ public class  UserRepository {
          }
     	 return updateUser;
     }
+    
+ // User lmsId 변경 메서드
+    public User updateLmsId(User user, String updateLmsId) {
+        String sql = "UPDATE user SET lmsId = ? WHERE id = ?";
+        try (Connection con = getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, updateLmsId);
+            pstmt.setInt(2, user.getId());
+            pstmt.executeUpdate();
+            user.setLmsId(updateLmsId);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return user;
+    }
+
+    // User lmsPass 변경 메서드
+    public User updateLmsPass(User user, String updateLmsPass) {
+        String sql = "UPDATE user SET lmsPass = ? WHERE id = ?";
+        try (Connection con = getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, updateLmsPass);
+            pstmt.setInt(2, user.getId());
+            pstmt.executeUpdate();
+            user.setLmsPass(updateLmsPass);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return user;
+    }
+
 }

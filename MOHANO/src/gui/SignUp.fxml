@@ -28,7 +28,7 @@
            <Font size="20.0" />
         </font>
      </Button>
-     <Text layoutX="84.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="smpt 비밀번호" textAlignment="RIGHT" wrappingWidth="135.33332061767578">
+     <Text layoutX="84.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="smtp 비밀번호" textAlignment="RIGHT" wrappingWidth="135.33332061767578">
         <font>
            <Font size="18.0" />
         </font>
@@ -88,11 +88,19 @@
            </Text>
          </graphic>
       </Button>
-      <Button fx:id="gotoSignInButton" onAction="#handleGoToSignIn" alignment="CENTER" graphicTextGap="2.0" layoutX="244.0" layoutY="360.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="111.0" text="goto sign in">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Button>
+<Button fx:id="gotoSignInButton" onAction="#handleGoToSignIn" alignment="CENTER" graphicTextGap="2.0"
+        layoutX="180.0" layoutY="360.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="111.0" text="goto sign in">
+    <font>
+        <Font size="20.0" />
+    </font>
+</Button>
+      <Button fx:id="editProfileButton" onAction="#handleEditProfile" alignment="CENTER" graphicTextGap="2.0"
+        layoutX="320.0" layoutY="360.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="111.0" text="edit profile">
+    <font>
+        <Font size="20.0" />
+    </font>
+</Button>
+
       <Text layoutX="180.0" layoutY="410.0" strokeType="OUTSIDE" strokeWidth="0.0" text="※ 회원가입을 여러번 하지 마십시오" fill="#0582ff">
     <font>
        <Font name="Pretendard" size="14.0" />
@@ -108,3 +116,4 @@
 
   </children>
 </AnchorPane>
+	

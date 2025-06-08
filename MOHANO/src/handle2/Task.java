@@ -12,11 +12,11 @@ public class Task {
     // private int id;
     private String subject;
     private String title;
-	private LocalDateTime deadline;  // 시간까지 포함
-	//기본 생성자
-	public Task() {
-		
-	}
+   private LocalDateTime deadline;  // 시간까지 포함
+   //기본 생성자
+   public Task() {
+      
+   }
     public Task(int userId, String subject, String title, String deadLine) {
         this.userId = userId;
         this.subject = subject;
@@ -28,20 +28,20 @@ public class Task {
     
     
     public int getTaskId() {
-		return taskId;
-	}
+      return taskId;
+   }
 
-	public void setTaskId(int taskId) {
-		this.taskId = taskId;
-	}
+   public void setTaskId(int taskId) {
+      this.taskId = taskId;
+   }
 
-	public int getUserId() {
-		return userId;
-	}
+   public int getUserId() {
+      return userId;
+   }
 
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
+   public void setUserId(int userId) {
+      this.userId = userId;
+   }
 
 
     public void setSubject(String sub) {
@@ -49,7 +49,7 @@ public class Task {
     }
     
     public String getSubject() {
-    	return subject;
+       return subject;
     }
 
     public void setTitle(String title) {
@@ -57,7 +57,7 @@ public class Task {
     }
     
     public String getTitle() {
-    	return title;
+       return title;
     }
     
     
@@ -65,7 +65,12 @@ public class Task {
         this.deadline = LocalDateTime.parse(deadlineStr, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
     public LocalDateTime getDeadline() {
-    	return deadline;
+       return deadline;
+    }
+    // 오류나면 이거부터 삭제해주세요
+    public String getDeadlineString() {
+       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+       return deadline.format(formatter);
     }
 
     @Override

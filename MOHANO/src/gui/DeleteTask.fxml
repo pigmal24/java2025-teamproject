@@ -7,31 +7,32 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.deleteTaskController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21.0.7" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.DeleteTaskController">
    <children>
-      <TableView layoutX="71.0" layoutY="99.0" prefHeight="263.0" prefWidth="457.0">
-        <columns>
-          <TableColumn prefWidth="132.00000762939453" text="마감기한" />
-          <TableColumn prefWidth="115.99998474121094" text="과목" />
-            <TableColumn prefWidth="208.00003051757812" text="과제명" />
-        </columns>
-      </TableView>
-      <Button contentDisplay="CENTER" layoutX="521.0" layoutY="12.0" mnemonicParsing="false" prefHeight="13.0" prefWidth="67.0" text="log out">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
-      <Button layoutX="429.0" layoutY="67.0" mnemonicParsing="false" text="선택" />
-      <Button layoutX="481.0" layoutY="67.0" mnemonicParsing="false" text="삭제" />
-      <Button layoutY="-1.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="123.0" styleClass="logo" />
-      <Button layoutX="-2.0" layoutY="-2.0" mnemonicParsing="false">
+      <Button fx:id="mohanoButton" layoutY="-1.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="123.0" styleClass="logo" onAction="#handleLogoClick">
          <graphic>
-            <Text fill="#0582ff" strokeType="OUTSIDE" strokeWidth="0.0" text="mohano" wrappingWidth="86.484375">
+            <Text fill="#0582ff" strokeType="OUTSIDE" strokeWidth="0.0" text="MOHANO" wrappingWidth="86.484375">
                <font>
                   <Font name="System Bold" size="32.0" />
                </font>
             </Text>
          </graphic>
       </Button>
+
+      <TableView fx:id="taskTable" layoutX="71.0" layoutY="99.0" prefHeight="263.0" prefWidth="457.0">
+         <columns>
+            <TableColumn fx:id="deadlineColumn" prefWidth="132.0" text="마감기한" />
+            <TableColumn fx:id="subjectColumn" prefWidth="116.0" text="과목" />
+            <TableColumn fx:id="titleColumn" prefWidth="208.0" text="과제명" />
+         </columns>
+      </TableView>
+
+      <Button fx:id="logoutButton" layoutX="521.0" layoutY="12.0" mnemonicParsing="false" prefHeight="13.0" prefWidth="67.0" text="log out" onAction="#handleLogout">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+
+      <Button fx:id="deleteButton" layoutX="481.0" layoutY="67.0" mnemonicParsing="false" text="삭제" onAction="#handleDelete" />
    </children>
 </AnchorPane>

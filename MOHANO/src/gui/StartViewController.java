@@ -17,7 +17,7 @@ public class StartViewController {
     @FXML
     public void initialize() {
         // 3초 대기
-        PauseTransition delay = new PauseTransition(Duration.seconds(3));
+        PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
         delay.setOnFinished(event -> {
             try {
                 Parent signInRoot = FXMLLoader.load(getClass().getResource("/gui/SignInAndUp.fxml"));
