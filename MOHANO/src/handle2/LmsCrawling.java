@@ -126,6 +126,11 @@ public class LmsCrawling {
                     String content = item.findElement(By.cssSelector(".fdaJD_bGBk"))
                                          .getText().trim();
                     // 과제명, 마감일 추출
+                    if (course.contains("과제")) {
+                    	course = "과제";
+                    }else if (course.contains("퀴즈")){
+                    	course = "퀴즈";
+                    }
                     String title = content;
                     String deadline = null;
                     if (content.contains(", due ")) {
