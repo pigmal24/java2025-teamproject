@@ -39,7 +39,7 @@
 }
 
 .button.logo {
-	-fx-background-color: transparent;
+	-fx-background-color: white;
 	-fx-border-color: transparent;
 	-fx-padding: 0;
 }

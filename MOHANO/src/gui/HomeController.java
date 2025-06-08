@@ -10,6 +10,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import respository.TaskRepository;
+
+import java.util.ArrayList;
 import java.util.List;
 import handle2.Task;
 import handle2.User;
@@ -35,15 +38,16 @@ public class HomeController {
     @FXML private TableColumn<Task, String> titleCol;
     @FXML private TableColumn<Task, String> deadlineCol;
 
-    // 24시간 내 과제 테이블
-    @FXML private TableView<Task> urgentTaskTable;
-    @FXML private TableColumn<Task, String> urgentSubjectCol;
-    @FXML private TableColumn<Task, String> urgentTitleCol;
-    @FXML private TableColumn<Task, String> urgentDeadlineCol;
-
+    // 과제 목록 테이블
+    @FXML private TableView<Task> personalTaskTable;
+    @FXML private TableColumn<Task, String> personalSubjectCol;
+    @FXML private TableColumn<Task, String> personalTitleCol;
+    @FXML private TableColumn<Task, String> personalDeadlineCol;
+    
     // 로그인한 사용자와 과제 리스트 저장용 필드
-    private User currentUser;
+    private User loggedInUser;
     private List<Task> currentTasks;
+    private List<Task> lmsTasks = new ArrayList<>();
 
     @FXML
     public void initialize() {
@@ -52,10 +56,10 @@ public class HomeController {
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         deadlineCol.setCellValueFactory(new PropertyValueFactory<>("deadline"));
 
-        // 24시간 내 과제 TableView 컬럼 설정
-        urgentSubjectCol.setCellValueFactory(new PropertyValueFactory<>("subject"));
-        urgentTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
-        urgentDeadlineCol.setCellValueFactory(new PropertyValueFactory<>("deadline"));
+        // 과제 목록 TableView 컬럼 설정
+        personalSubjectCol.setCellValueFactory(new PropertyValueFactory<>("subject"));
+        personalTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        personalDeadlineCol.setCellValueFactory(new PropertyValueFactory<>("deadline"));
     }
 
     // LMS 과제 리스트를 TableView에 세팅하고 필드에 저장
@@ -68,14 +72,44 @@ public class HomeController {
         lmsTaskTable.setItems(FXCollections.observableArrayList(tasks));
     }
 
-    // 24시간 내 과제 리스트를 TableView에 세팅 (필요시)
-    public void setUrgentTasks(List<Task> urgentTasks) {
-        urgentTaskTable.setItems(FXCollections.observableArrayList(urgentTasks));
-    }
-
     // User 객체 세팅
     public void setUser(User user) {
-        this.currentUser = user;
+    	this.loggedInUser = user;
+    	
+    	//lms 정보가 바뀌었을 수도 있으므로 lms과제 다시 불러오기
+		lmsTasks = TaskRepository.getInstance().loadLmsTasks();
+		lmsTaskTable.setItems(FXCollections.observableArrayList(this.lmsTasks));
+    	
+		List<Task> allTasks = TaskRepository.getInstance().findByUserIdTaskAll(user);
+		List<Task> personalTasks = allTasks.stream().filter(task -> !task.getSubject().startsWith("LMS_")).toList();
+		
+		this.currentTasks = personalTasks;
+		
+    	//lmsTaskTable.setItems(FXCollections.observableArrayList(this.lmsTasks));
+    	personalTaskTable.setItems(FXCollections.observableArrayList(this.currentTasks));
+    }
+    
+    public void setPersonalTasks(List<Task> personalTasks) {
+    	this.currentTasks = personalTasks;
+    	refreshTasks();
+    }
+    
+    public List<Task> getCurrentTasks() {
+    	return currentTasks;
+    }
+    
+    public void refreshTasks() {
+    	if (this.loggedInUser == null) {
+    		return;
+    	}
+    	
+    	List<Task> allTasks = TaskRepository.getInstance().findByUserIdTaskAll(loggedInUser);
+    	List<Task> personalTasks = allTasks.stream().filter(task -> !task.getSubject().startsWith("LMS_")).toList();
+    	this.currentTasks = personalTasks;
+    	
+    	personalTaskTable.setItems(FXCollections.observableArrayList(this.currentTasks));
+    	lmsTasks = TaskRepository.getInstance().loadLmsTasks();
+    	lmsTaskTable.setItems(FXCollections.observableArrayList(this.lmsTasks));
     }
 
     @FXML
@@ -94,7 +128,7 @@ public class HomeController {
     public void handleLogout() {
         // 로그아웃 시 이메일 전송
         try {
-            if (currentUser != null && currentTasks != null) {
+            if (loggedInUser != null && currentTasks != null) {
                 // 오늘 마감 과제와 마감 지난 과제 분류
                 List<Task> todayTask = currentTasks.stream()
                     .filter(task -> {
@@ -109,7 +143,7 @@ public class HomeController {
                     .toList();
 
                 EmailSender emailSender = new EmailSender();
-                emailSender.sendUserTaskEmail(currentUser, todayTask, removedTask);
+                emailSender.sendUserTaskEmail(loggedInUser, todayTask, removedTask);
             }
         } catch (Exception e) {
             System.out.println("로그아웃 이메일 전송 실패: " + e.getMessage());
@@ -133,7 +167,7 @@ public class HomeController {
             Parent root = loader.load();
 
             AddTaskController controller = loader.getController();
-            controller.setUser(this.currentUser);  // 로그인한 유저 정보 전달!
+            controller.setUser(this.loggedInUser);  // 로그인한 유저 정보 전달!
 
             Stage stage = (Stage) addTaskButton.getScene().getWindow();
             stage.setScene(new Scene(root, 450, 400));
@@ -156,3 +190,4 @@ public class HomeController {
     }
 
 }
+

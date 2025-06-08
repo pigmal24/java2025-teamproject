@@ -113,7 +113,7 @@ public class SignInController {
                 HomeController homeController = loader.getController();
 
                 homeController.setTasks(tasks);
-                homeController.setUrgentTasks(TaskRepository.getInstance().findByUserIdTaskAll(user));
+                //homeController.setUrgentTasks(TaskRepository.getInstance().findByUserIdTaskAll(user));
                 homeController.setUser(user);
 
                 Stage stage = (Stage) schoolNumField.getScene().getWindow();
@@ -129,7 +129,7 @@ public class SignInController {
                 HomeController homeController = loader.getController();
 
                 homeController.setTasks(null);
-                homeController.setUrgentTasks(TaskRepository.getInstance().findByUserIdTaskAll(user));
+                //homeController.setPeronalTasks(TaskRepository.getInstance().findByUserIdTaskAll(user));
                 homeController.setUser(user);
 
                 Stage stage = (Stage) schoolNumField.getScene().getWindow();
@@ -148,7 +148,7 @@ public class SignInController {
                 HomeController homeController = loader.getController();
 
                 homeController.setTasks(tasks);
-                homeController.setUrgentTasks(TaskRepository.getInstance().findByUserIdTaskAll(user));
+                //homeController.setUrgentTasks(TaskRepository.getInstance().findByUserIdTaskAll(user));
                 homeController.setUser(user);
 
                 Stage stage = (Stage) schoolNumField.getScene().getWindow();

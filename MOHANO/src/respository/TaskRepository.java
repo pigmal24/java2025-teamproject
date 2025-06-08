@@ -17,6 +17,8 @@ import java.time.format.DateTimeFormatter;
 
 import java.util.Optional;
 
+import connection.DBConnectionUtil;
+
 import static connection.DBConnectionUtil.*;
 
     public class TaskRepository {
@@ -177,6 +179,59 @@ import static connection.DBConnectionUtil.*;
                 throw new RuntimeException(e);
             }
             return tasks;
+        }
+        
+        // lmsID로 task를 불러오는 메서드
+        public List<Task> findByUserIdLmsTask(User user) {
+        	List<Task> list = new ArrayList<>();
+        	
+        	try {
+        		Connection connection = DBConnectionUtil.getConnection();
+        		String sql = "SELECT * FROM task WHERE userId = ?";
+        		PreparedStatement pstmt = connection.prepareStatement(sql);
+        		pstmt.setInt(1, user.getId());
+        		ResultSet rs = pstmt.executeQuery();
+        		
+        		while (rs.next()) {
+        			Task task = new Task();
+        			task.setTaskId(rs.getInt("taskId"));
+        			task.setUserId(rs.getInt("userId"));
+        			task.setSubject(rs.getString("subject"));
+        			task.setTitle(rs.getString("title"));
+        			task.setDeadline(rs.getString("deadline"));
+        			list.add(task);
+        		}
+        	} catch (Exception e) {
+        		e.printStackTrace();
+        	}
+        	
+        	return list;
+        }
+        
+        //lms과제 load
+        public List<Task> loadLmsTasks() {
+        	List<Task> list = new ArrayList<>();
+        	
+        	try {
+        		Connection connection = DBConnectionUtil.getConnection();
+        		String sql = "SELECT * FROM task WHERE subject LIKE 'LMS_%'";
+        		PreparedStatement pstmt = connection.prepareStatement(sql);
+        		ResultSet rs = pstmt.executeQuery();
+        		
+        		while (rs.next()) {
+        			Task task = new Task();
+        			task.setTaskId(rs.getInt("taskId"));
+        			task.setUserId(rs.getInt("userId"));
+        			task.setSubject(rs.getString("subject"));
+        			task.setTitle(rs.getString("title"));
+        			task.setDeadline(rs.getString("deadline"));
+        			list.add(task);
+        		}
+        	} catch (Exception e) {
+        		e.printStackTrace();
+        	}
+        	
+        	return list;
         }
 
         // deadLine 이 지난 과제를 삭제하는 메서드

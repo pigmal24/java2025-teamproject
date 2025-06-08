@@ -62,6 +62,7 @@ public class Task {
     
     
     public void setDeadline(String deadlineStr) {
+    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         this.deadline = LocalDateTime.parse(deadlineStr, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
     public LocalDateTime getDeadline() {
