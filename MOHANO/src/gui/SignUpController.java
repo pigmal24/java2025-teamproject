@@ -47,6 +47,9 @@ public class SignUpController {
         String email = emailField.getText().trim();
         String smtpPass = smtpPassField.getText().trim();
         
+        // 추가 부분
+        String lmsId = lmsIdField.getText().trim();
+        String lmsPass = lmsPassField.getText().trim();
 
         // 간단한 필수 입력 체크
         if (studentId.isEmpty() || name.isEmpty() || email.isEmpty()) {
@@ -63,6 +66,9 @@ public class SignUpController {
         user.setStudentName(name);
         user.setEmailAddress(email);
         user.setSmtpPass(smtpPass);
+        // 추가
+        user.setLmsId(lmsId);
+        user.setLmsPass(lmsPass);
       
         UserRepository.getInstance().save(user);
 
