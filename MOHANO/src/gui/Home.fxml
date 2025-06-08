@@ -37,7 +37,7 @@
        </Button>
       <TabPane layoutX="69.0" layoutY="99.0" prefHeight="265.0" prefWidth="461.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="24시간 내">
+          <Tab text="과제 목록">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>

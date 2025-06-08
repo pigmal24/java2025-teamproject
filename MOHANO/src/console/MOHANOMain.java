@@ -17,7 +17,7 @@ public class MOHANOMain extends Application {
          Parent root = FXMLLoader.load(getClass().getResource("/gui/SignIn.fxml"));
          primaryStage.setTitle("MOHANO 로그인");
          primaryStage.setScene(new Scene(root, 600, 450));
-         primaryStage.show();
+         primaryStage.show();	
       } catch(Exception e) {
          e.printStackTrace();
       }

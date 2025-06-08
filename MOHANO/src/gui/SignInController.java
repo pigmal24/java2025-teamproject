@@ -10,17 +10,20 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import handle2.User;
 import respository.UserRepository;
+import respository.TaskRepository;
 import handle2.LmsCrawling;
+import handle2.EmailSender;
+import handle2.Task;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class SignInController {
 
     @FXML
     private TextField schoolNumField;
-
-    @FXML
-    private TextField lmsIdField;
 
     @FXML
     private TextField emailField;
@@ -30,22 +33,15 @@ public class SignInController {
 
     @FXML
     private Button mohanoButton;
-    
-    @FXML 
-    private TextField lmsPassField;
 
     @FXML
     public void handleLogin() {
-    	
-    
         String schoolNum = schoolNumField.getText().trim();
-        String lmsIdInput = lmsIdField.getText().trim();
-        String lmsPassInput = lmsPassField.getText().trim();
         String emailInput = emailField.getText().trim();
 
         // 필수 입력 체크
-        if (schoolNum.isEmpty() || lmsIdInput.isEmpty() || lmsPassInput.isEmpty() || emailInput.isEmpty()) {
-            showAlert(Alert.AlertType.WARNING, "입력 오류", "모든 필드를 채워주세요.");
+        if (schoolNum.isEmpty() || emailInput.isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "입력 오류", "모든 항목을 채워주세요.");
             return;
         }
 
@@ -59,58 +55,112 @@ public class SignInController {
         User user = optionalUser.get();
 
         // 이메일 일치 여부 확인 (DB 값과 비교)
-        if (!emailInput.trim().equals(user.getEmailAddress().trim())) {
+        if (!emailInput.equals(user.getEmailAddress())) {
             showAlert(Alert.AlertType.ERROR, "로그인 실패", "이메일이 올바르지 않습니다.");
             return;
         }
-        
+
+        // User에서 LMS 아이디/비밀번호 읽기
+        String lmsIdInput = user.getLmsId();
+        String lmsPassInput = user.getLmsPass();
+
         try {
-            // 크롤링 시작 전 2초 대기
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        
+
         LmsCrawling lmsCrawling = new LmsCrawling(lmsIdInput, lmsPassInput);
 
         try {
-            // 크롤링 시작 전 2초 대기
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        
-        
+
+        List<Task> tasks = null;
+
         try {
-        	var tasks = lmsCrawling.crawling(-1);
+            tasks = lmsCrawling.crawling(-1);
 
-        	if (tasks != null) { // null이 아니면 로그인 성공으로 간주
-        	    showAlert(Alert.AlertType.INFORMATION, "로그인 성공", "환영합니다, " + user.getStudentName() + "님!");
+            if (tasks != null) { // 로그인 성공
+                showAlert(Alert.AlertType.INFORMATION, "로그인 성공", "환영합니다, " + user.getStudentName() + "님!");
 
-        	    // 화면 전환
-        	    FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Home.fxml"));
-        	    Parent root = loader.load();
-        	    HomeController homeController = loader.getController();
-        	    homeController.setTasks(tasks); // tasks가 비어 있어도 정상
-        	    Stage stage = (Stage) schoolNumField.getScene().getWindow();
-        	    stage.setScene(new Scene(root, 600, 400));
-        	    stage.setTitle("Home");
-        	    return;
+                // 오늘 마감 과제 리스트 추출
+                List<Task> todayTask = tasks.stream()
+                        .filter(task -> {
+                            LocalDateTime now = LocalDateTime.now();
+                            LocalDateTime deadline = task.getDeadline();
+                            return !deadline.isBefore(now) && deadline.isBefore(now.plusDays(1));
+                        })
+                        .collect(Collectors.toList());
 
-        	} else { // null이면 로그인 실패 또는 크롤링 오류
-        	    showAlert(Alert.AlertType.ERROR, "로그인 실패", "LMS 로그인 정보가 올바르지 않습니다.");
-        	    return;
-        	}
+                // 마감이 지난 과제 리스트 추출
+                List<Task> removedTask = tasks.stream()
+                        .filter(task -> task.getDeadline().isBefore(LocalDateTime.now()))
+                        .collect(Collectors.toList());
+
+                // 이메일 전송
+                try {
+                    EmailSender emailSender = new EmailSender();
+                    emailSender.sendUserTaskEmail(user, todayTask, removedTask);
+                } catch (Exception e) {
+                    System.out.println("이메일 전송 중 오류: " + e.getMessage());
+                }
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Home.fxml"));
+                Parent root = loader.load();
+                HomeController homeController = loader.getController();
+
+                homeController.setTasks(tasks);
+                homeController.setUrgentTasks(TaskRepository.getInstance().findByUserIdTaskAll(user));
+                homeController.setUser(user);
+
+                Stage stage = (Stage) schoolNumField.getScene().getWindow();
+                stage.setScene(new Scene(root, 600, 400));
+                stage.setTitle("Home");
+                return;
+
+            } else {
+                showAlert(Alert.AlertType.ERROR, "로그인 실패", "LMS 로그인 정보가 올바르지 않습니다.");
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Home.fxml"));
+                Parent root = loader.load();
+                HomeController homeController = loader.getController();
+
+                homeController.setTasks(null);
+                homeController.setUrgentTasks(TaskRepository.getInstance().findByUserIdTaskAll(user));
+                homeController.setUser(user);
+
+                Stage stage = (Stage) schoolNumField.getScene().getWindow();
+                stage.setScene(new Scene(root, 600, 400));
+                stage.setTitle("Home");
+                return;
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "오류", "LMS 크롤링 중 오류가 발생했습니다.");
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Home.fxml"));
+                Parent root = loader.load();
+                HomeController homeController = loader.getController();
+
+                homeController.setTasks(tasks);
+                homeController.setUrgentTasks(TaskRepository.getInstance().findByUserIdTaskAll(user));
+                homeController.setUser(user);
+
+                Stage stage = (Stage) schoolNumField.getScene().getWindow();
+                stage.setScene(new Scene(root, 600, 400));
+                stage.setTitle("Home");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            return;
         }
-        
-        
     }
 
-    
     @FXML
     public void handleGoToSignUp() {
         try {
