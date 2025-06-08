@@ -128,7 +128,6 @@ public class LmsCrawling {
                     // 과제명, 마감일 추출
                     String title = content;
                     String deadline = null;
-
                     if (content.contains(", due ")) {
                         String[] parts = content.split(", due ");
                         title = parts[0];
