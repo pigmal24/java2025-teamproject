@@ -117,6 +117,7 @@ public class LmsCrawling {
             pushToMySub.click();
             
             List<WebElement> plannerItems = driver.findElements(By.cssSelector(".PlannerItem-styles__layout"));
+            
             taskInfos = new ArrayList<>();
             for (WebElement item : plannerItems) {
                 try {
