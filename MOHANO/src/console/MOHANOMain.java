@@ -11,17 +11,20 @@ import javafx.scene.Parent;
 import javafx.stage.Stage;
 
 public class MOHANOMain extends Application {
-   @Override
-   public void start(Stage primaryStage) {
-      try {
-         Parent root = FXMLLoader.load(getClass().getResource("/gui/StartView.fxml"));
-         primaryStage.setTitle("MOHANO 로그인");
-         primaryStage.setScene(new Scene(root, 600, 450));
-         primaryStage.show();	
-      } catch(Exception e) {
-         e.printStackTrace();
-      }
-   }
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+	    FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/SignInAndUp.fxml"));
+	    Parent root = loader.load();
+	    Scene scene = new Scene(root);
+
+	    // ✅ 이 줄을 꼭 추가하세요!
+	    scene.getStylesheets().add(getClass().getResource("/gui/style.css").toExternalForm());
+
+	    primaryStage.setTitle("Sign In and Up");
+	    primaryStage.setScene(scene);
+	    primaryStage.show();
+	}
+
 
    public static void main(String[] args) {
 	  

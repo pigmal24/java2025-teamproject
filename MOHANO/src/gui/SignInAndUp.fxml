@@ -9,18 +9,13 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.SignInAndUpController">
    <children>
-      <Text fill="#0582ff" layoutX="170.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MOHANO" textAlignment="CENTER" styleClass="button logo">
-         <font>
-            <Font size="96.0" />
-         </font>
-         <effect>
-            <Blend>
-               <topInput>
-                  <ColorInput />
-               </topInput>
-            </Blend>
-         </effect>
-      </Text>
+      <Text layoutX="170.0" layoutY="185.0"
+      text="MOHANO"
+      styleClass="logo-title"
+      strokeType="OUTSIDE"
+      strokeWidth="0.0"
+      textAlignment="CENTER" />
+
       <Text fill="#0582ff" layoutX="22.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mail organizer and handler for alerts and Notifications Optimizer" textAlignment="CENTER" wrappingWidth="556.6666870117188">
          <font>
             <Font size="18.0" />
