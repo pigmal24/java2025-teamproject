@@ -79,9 +79,8 @@ public class SignInController {
             }
         }
 
-        // 마감된 과제 제거
-        repo.removePastTasksAll(user);
-
+        // 기한이 지난 과제를 removedTask 에 저장
+        List<Task> removedTask = repo.removePastTasksAll(user);
         try {
             // 홈 화면 로드
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Home.fxml"));
@@ -98,11 +97,7 @@ public class SignInController {
                         return !deadline.isBefore(now) && deadline.isBefore(now.plusDays(1));
                     })
                     .collect(Collectors.toList());
-
-            List<Task> removedTask = allTasks.stream()
-                    .filter(task -> task.getDeadline().isBefore(LocalDateTime.now()))
-                    .collect(Collectors.toList());
-
+  
             try {
                 EmailSender emailSender = new EmailSender();
                 emailSender.sendUserTaskEmail(user, todayTask, removedTask);
