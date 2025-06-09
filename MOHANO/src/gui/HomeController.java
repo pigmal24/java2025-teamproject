@@ -236,10 +236,16 @@ public class HomeController {
     @FXML
     public void handleEditProfile() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/gui/EditProfile.fxml"));
+        	FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/EditProfile.fxml"));
+        	Parent root = loader.load();
+        	
+        	EditProfileController controller = loader.getController();
+        	controller.setUser(loggedInUser);
+        	
             Stage stage = (Stage) editProfileButton.getScene().getWindow();
             stage.setScene(new Scene(root, 600, 450));
             stage.setTitle("Edit Profile");
+            stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,11 +1,16 @@
 @font-face {
 	font-family: 'Pretendard';
-	src: url('Pretendard-Regular.ttf');
+	src: url('/resources/Pretendard-Regular.ttf');
 }
 
 @font-face {
 	font-family: 'HeadingFont';
-	src: url('Pretendard-Bold.ttf');
+	src: url('/resources/Pretendard-Bold.ttf');
+}
+
+@font-face {
+	font-family: 'PyeongChang';
+	src: url('/resources/PyeongChangPeace-Bold.ttf');
 }
 
 .root {
@@ -21,13 +26,13 @@
 .text {
 	-fx-font-family: 'Pretendard', 'Noto Sans KR', 'sans-serif';
 	-fx-font-size: 12px;
-	-fx-font-fill: #222;
+	-fx-text-fill: #222;
 }
 
 .label.heading {
 	-fx-font-size: 24px;
 	-fx-font-fill: #0078d7;
-	-fx-font-family: 'HeadingFont';
+	-fx-font-family: 'Pretendard';
 	-fx-font-weight: bold;
 }
 
@@ -39,13 +44,39 @@
 }
 
 .button.logo {
-	-fx-background-color: white;
+	-fx-background-color: white !important;
 	-fx-border-color: transparent;
+	-fx-font-family: 'PyeongChang', sans-serif;
+	-fx-text-fill: #0582ff;
+	-fx-font-size: 32px;
+	-fx-pref-width: 140px;
+	-fx-pref-height: 52px;
 	-fx-padding: 0;
 }
 
+.logo-title {
+	-fx-font-family: 'PyeongChang';
+	-fx-font-size: 48px;
+	-fx-text-fill: #0582ff;
+}
+
 .text-field, .password-field {
-	-fx-backgound-radius: 4;
+	-fx-background-radius: 4;
 	-fx-border-radius: 4;
 	-fx-padding: 4;
+}
+
+.tab-pane {
+	-fx-font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+	-fx-background-color: #ffffff;
+}
+
+.tab {
+	-fx-font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+	-fx-font-size: 14px;
+}
+
+.tab-label {
+	-fx-text-fill: #0078d7;
+	-fx-font-weight: bold;
 }

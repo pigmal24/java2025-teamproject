@@ -14,27 +14,27 @@
             <Font name="System Bold" size="42.0" />
          </font>
       </Text>
-      <Text layoutX="107.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="과목" textAlignment="RIGHT" wrappingWidth="38.66668701171875">
+      <Text layoutX="124.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="과목" textAlignment="RIGHT" wrappingWidth="38.66668701171875">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <TextField fx:id="subjectField" layoutX="163.0" layoutY="134.0" prefHeight="25.0" prefWidth="171.0" />
-      <Text layoutX="57.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="과제 이름" textAlignment="RIGHT" wrappingWidth="89.3333740234375">
+      <TextField fx:id="subjectField" layoutX="180.0" layoutY="126.0" prefHeight="25.0" prefWidth="171.0" />
+      <Text layoutX="74.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" text="과제 이름" textAlignment="RIGHT" wrappingWidth="89.3333740234375">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <TextField fx:id="titleField" layoutX="163.0" layoutY="166.0" prefHeight="25.0" prefWidth="171.0" />
-      <Text layoutX="60.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="제출 기한" textAlignment="RIGHT" wrappingWidth="85.3333740234375">
+      <TextField fx:id="titleField" layoutX="180.0" layoutY="158.0" prefHeight="25.0" prefWidth="171.0" />
+      <Text layoutX="77.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="제출 기한" textAlignment="RIGHT" wrappingWidth="85.3333740234375">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <TextField fx:id="deadlineField" layoutX="163.0" layoutY="198.0" prefHeight="25.0" prefWidth="171.0" />
-      <Button fx:id="mohanoButton" layoutX="-1.0" mnemonicParsing="false" onAction="#handleLogoClick" prefHeight="44.0" prefWidth="115.0">
+      <TextField fx:id="deadlineField" layoutX="180.0" layoutY="190.0" prefHeight="25.0" prefWidth="171.0" />
+      <Button fx:id="mohanoButton" layoutX="-1.0" mnemonicParsing="false" text="Mohano" onAction="#handleLogoClick" styleClass="button logo" prefHeight="44.0" prefWidth="115.0">
          <graphic>
-            <Text fill="#0582ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Mohano" textAlignment="CENTER" wrappingWidth="97.81768035888672">
+            <Text fill="#0582ff" strokeType="OUTSIDE" strokeWidth="0.0"  textAlignment="CENTER" wrappingWidth="97.81768035888672">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
@@ -42,7 +42,7 @@
          </graphic>
       </Button>
       
-      <Text fill="#0582ff" layoutX="82.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="※제출기한은 YYYY-MM-DD HH:MM 형식으로 입력하십시오 ">
+      <Text fill="#0582ff" layoutX="82.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="※ 제출기한은 YYYY-MM-DD HH:MM 형식으로 입력하십시오 ">
       <font>
         <Font name="Pretendard" size="12.0" />
       </font>

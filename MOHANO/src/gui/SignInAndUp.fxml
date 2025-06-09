@@ -7,10 +7,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21.0.7" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.SignInAndUpController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.SignInAndUpController">
    <children>
-      <Text fill="#0582ff" layoutX="80.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MOHANO" textAlignment="CENTER">
+      <Text fill="#0582ff" layoutX="170.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MOHANO" textAlignment="CENTER" styleClass="button logo">
          <font>
             <Font size="96.0" />
          </font>
@@ -22,12 +21,12 @@
             </Blend>
          </effect>
       </Text>
-      <Text fill="#0582ff" layoutX="22.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mail organizer and handler for alerts and Notifications Optimizer" textAlignment="CENTER" wrappingWidth="556.6666870117188">
+      <Text fill="#0582ff" layoutX="22.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mail organizer and handler for alerts and Notifications Optimizer" textAlignment="CENTER" wrappingWidth="556.6666870117188">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Button fx:id="signInButton" onAction="#handleSignIn" layoutX="196.0" layoutY="274.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="85.0" text="sign in" />
-      <Button fx:id="signUpButton" onAction="#handleSignUp" layoutX="325.0" layoutY="274.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="85.0" text="sign up" />
+      <Button fx:id="signInButton" layoutX="196.0" layoutY="284.0" mnemonicParsing="false" onAction="#handleSignIn" prefHeight="37.0" prefWidth="85.0" text="sign in" />
+      <Button fx:id="signUpButton" layoutX="325.0" layoutY="284.0" mnemonicParsing="false" onAction="#handleSignUp" prefHeight="37.0" prefWidth="85.0" text="sign up" />
    </children>
 </Pane>

@@ -6,80 +6,79 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.SignUpController">
+<AnchorPane prefHeight="450.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.SignUpController">
   <children>
      <Text layoutX="237.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign up">
         <font>
            <Font name="System Bold" size="50.0" />
         </font>
      </Text>
-     <Text layoutX="174.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="학번" textAlignment="RIGHT" wrappingWidth="47.33331298828125">
+     <Text layoutX="174.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="학번" textAlignment="RIGHT" wrappingWidth="47.33331298828125" styleClass="text">
         <font>
-           <Font size="18.0" />
+           <Font size="18.0"/>
         </font>
      </Text>
-     <Text layoutX="151.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="이메일" textAlignment="RIGHT" wrappingWidth="70.6666259765625">
+     <Text layoutX="151.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="이메일" textAlignment="RIGHT" wrappingWidth="70.6666259765625" styleClass="text">
         <font>
-           <Font size="18.0" />
+           <Font size="18.0"/>
         </font>
      </Text>
-     <Button fx:id="signUpButton" onAction="#handleSignUp" alignment="CENTER" graphicTextGap="2.0" layoutX="152.0" layoutY="317.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="295.0" text="sign up">
+     <Button fx:id="signUpButton" alignment="CENTER" graphicTextGap="2.0" layoutX="173.0" layoutY="317.0" mnemonicParsing="false" onAction="#handleSignUp" prefHeight="37.0" prefWidth="253.0" text="sign up">
         <font>
            <Font size="20.0" />
         </font>
      </Button>
-     <Text layoutX="84.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="smtp 비밀번호" textAlignment="RIGHT" wrappingWidth="135.33332061767578">
+     <Text layoutX="84.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="smtp 비밀번호" textAlignment="RIGHT" wrappingWidth="135.33332061767578" styleClass="text">
         <font>
-           <Font size="18.0" />
+           <Font size="18.0"/>
         </font>
      </Text>
-     <Text layoutX="174.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="이름" textAlignment="RIGHT" wrappingWidth="47.33331298828125">
+     <Text layoutX="174.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="이름" textAlignment="RIGHT" wrappingWidth="47.33331298828125" styleClass="text">
         <font>
-           <Font size="18.0" />
+           <Font size="18.0"/>
         </font>
      </Text>
-     <TextField fx:id="nameField" layoutX="230.0" layoutY="87.0" prefHeight="9.0" prefWidth="191.0">
+     <TextField fx:id="nameField" layoutX="230.0" layoutY="87.0" prefHeight="9.0" prefWidth="191.0" styleClass="text">
         <font>
-           <Font size="18.0" />
+           <Font size="20.0" />
         </font>
      </TextField>
-      <Text layoutX="84.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="lms 아이디" textAlignment="RIGHT" wrappingWidth="135.33332061767578">
+      <Text layoutX="84.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="lms 아이디" textAlignment="RIGHT" wrappingWidth="135.33332061767578" styleClass="text">
+         <font>
+            <Font size="18.0"/>
+         </font>
+      </Text>
+      <TextField fx:id="studentIdField" layoutX="230.0" layoutY="124.0" prefHeight="9.0" prefWidth="191.0" styleClass="text">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="emailField" layoutX="230.0" layoutY="161.0" prefHeight="9.0" prefWidth="191.0" styleClass="text">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="smtpPassField" layoutX="230.0" layoutY="198.0" prefHeight="9.0" prefWidth="191.0" styleClass="text">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="lmsIdField" layoutX="230.0" layoutY="235.0" prefHeight="9.0" prefWidth="191.0" styleClass="text">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="lmsPassField" layoutX="230.0" layoutY="272.0" prefHeight="9.0" prefWidth="191.0" styleClass="text">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <Text layoutX="84.0" layoutY="293.0" strokeType="OUTSIDE" strokeWidth="0.0" text="lms 비밀번호" textAlignment="RIGHT" wrappingWidth="135.33332061767578" styleClass="text">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <TextField fx:id="studentIdField" layoutX="230.0" layoutY="124.0" prefHeight="9.0" prefWidth="191.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextField>
-      <TextField  fx:id="emailField" layoutX="230.0" layoutY="161.0" prefHeight="9.0" prefWidth="191.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="smtpPassField"  layoutX="230.0" layoutY="198.0" prefHeight="9.0" prefWidth="191.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="lmsIdField" layoutX="230.0" layoutY="235.0" prefHeight="9.0" prefWidth="191.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="lmsPassField" layoutX="230.0" layoutY="272.0" prefHeight="9.0" prefWidth="191.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextField>
-      <Text layoutX="84.0" layoutY="293.0" strokeType="OUTSIDE" strokeWidth="0.0" text="lms 비밀번호" textAlignment="RIGHT" wrappingWidth="135.33332061767578">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
-      <Button fx:id="mohanoButton"
-        onAction="#goToSignInAndUp" layoutX="-1.0" layoutY="-2.0" mnemonicParsing="false">
+      <Button fx:id="mohanoButton" layoutX="-1.0" layoutY="-2.0" mnemonicParsing="false" onAction="#goToSignInAndUp" styleClass="button logo">
          <graphic>
            <Text fill="#0582ff" strokeType="OUTSIDE" strokeWidth="0.0" text="MOHANO">
               <font>
@@ -88,32 +87,29 @@
            </Text>
          </graphic>
       </Button>
-<Button fx:id="gotoSignInButton" onAction="#handleGoToSignIn" alignment="CENTER" graphicTextGap="2.0"
-        layoutX="180.0" layoutY="360.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="111.0" text="goto sign in">
+<Button fx:id="gotoSignInButton" alignment="CENTER" graphicTextGap="2.0" layoutX="173.0" layoutY="360.0" mnemonicParsing="false" onAction="#handleGoToSignIn" prefHeight="30.0" prefWidth="125.0" text="goto sign in">
     <font>
         <Font size="20.0" />
     </font>
 </Button>
-      <Button fx:id="editProfileButton" onAction="#handleEditProfile" alignment="CENTER" graphicTextGap="2.0"
-        layoutX="320.0" layoutY="360.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="111.0" text="edit profile">
+      <Button fx:id="editProfileButton" alignment="CENTER" graphicTextGap="2.0" layoutX="301.0" layoutY="360.0" mnemonicParsing="false" onAction="#handleEditProfile" prefHeight="30.0" prefWidth="125.0" text="edit profile">
     <font>
         <Font size="20.0" />
     </font>
 </Button>
 
-      <Text layoutX="180.0" layoutY="410.0" strokeType="OUTSIDE" strokeWidth="0.0" text="※ 회원가입을 여러번 하지 마십시오" fill="#0582ff">
+      <Text fill="#0582ff" layoutX="202.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" text="※ 회원가입을 여러번 하지 마십시오" textAlignment="CENTER" styleClass="text">
     <font>
-       <Font name="Pretendard" size="14.0" />
+       <Font size="14.0" />
     </font>
 </Text>
 
-<Text layoutX="180.0" layoutY="430.0" strokeType="OUTSIDE" strokeWidth="0.0" text="※ 이메일은 @gmail.com 만 사용하십시오" fill="#0582ff">
+<Text fill="#0582ff" layoutX="185.0" layoutY="431.0" strokeType="OUTSIDE" strokeWidth="0.0" text="※ 이메일은 @gmail.com 만 사용하십시오" textAlignment="CENTER" styleClass="text">
     <font>
-       <Font name="Pretendard" size="14.0" />
+       <Font size="14.0" />
     </font>
 </Text>
 
 
   </children>
 </AnchorPane>
-	

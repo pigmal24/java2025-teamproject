@@ -9,28 +9,28 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.HomeController">
+<AnchorPane prefHeight="450.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.HomeController">
     <children>
        
-       <Button fx:id="logoutButton"  onAction="#handleLogout" contentDisplay="CENTER" layoutX="521.0" layoutY="12.0" mnemonicParsing="false" prefHeight="13.0" prefWidth="67.0" text="log out">
+       <Button fx:id="logoutButton" contentDisplay="CENTER" layoutX="524.0" layoutY="12.0" mnemonicParsing="false" onAction="#handleLogout" prefHeight="27.0" prefWidth="64.0" text="log out">
           <font>
              <Font size="18.0" />
           </font>
        </Button>
        
-       <Button fx:id="addTaskButton" onAction="#handleAddTask" layoutX="432.0" layoutY="66.0" mnemonicParsing="false" text="추가" />
-       <Button  fx:id="deleteTaskButton" onAction="#handleDeleteTask" layoutX="483.0" layoutY="66.0" mnemonicParsing="false" prefHeight="7.0" prefWidth="45.0" text="삭제" />
-       <Button layoutY="-1.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="123.0" styleClass="logo" >
+       <Button fx:id="addTaskButton" layoutX="432.0" layoutY="66.0" mnemonicParsing="false" onAction="#handleAddTask" text="추가" />
+       <Button fx:id="deleteTaskButton" layoutX="483.0" layoutY="66.0" mnemonicParsing="false" onAction="#handleDeleteTask" prefHeight="7.0" prefWidth="45.0" text="삭제" />
+       <Button layoutY="-1.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="123.0" styleClass="logo">
           <graphic>
-             <Text fill="#0582ff" strokeType="OUTSIDE" strokeWidth="0.0" text="MOHANO" wrappingWidth="86.484375">
+             <Text fill="#0582ff" strokeType="OUTSIDE" strokeWidth="0.0" text="MOHANO" textAlignment="CENTER" wrappingWidth="86.484375" styleClass="button logo">
                 <font>
-                   <Font name="System Bold" size="18.1" />
+                   <Font name="System Bold" size="30.0" />
                 </font>
              </Text>
           </graphic>
        </Button>
        
-       <Button fx:id="editProfileButton" onAction="#handleEditProfile" contentDisplay="CENTER" layoutX="414.0" layoutY="12.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="101.0" text="edit profile">
+       <Button fx:id="editProfileButton" contentDisplay="CENTER" layoutX="417.0" layoutY="12.0" mnemonicParsing="false" onAction="#handleEditProfile" prefHeight="27.0" prefWidth="101.0" text="edit profile">
           <font>
              <Font size="18.0" />
           </font>
@@ -57,7 +57,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="lmsTaskTable" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" prefHeight="237.0" prefWidth="461.0">
+                        <TableView fx:id="lmsTaskTable" prefHeight="237.0" prefWidth="461.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columns>
                             <TableColumn fx:id="subjectCol" prefWidth="97.3" text="과목" />
                             <TableColumn fx:id="titleCol" prefWidth="191.3" text="과제명" />
