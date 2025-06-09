@@ -152,7 +152,7 @@ public class LmsCrawling {
                     }
                     title = title.replaceFirst("^(과제|행사|퀴즈)\\s*", "").trim();
                     idLMS++;
-                    taskInfos.add(new Task(idLMS,course,title,parseKoreanDateTimeToFormatted(deadline)));
+                    taskInfos.add(new Task(idLMS, "LMS_"+ course, title, parseKoreanDateTimeToFormatted(deadline)));
                 } catch (Exception e) {
                 }
             }

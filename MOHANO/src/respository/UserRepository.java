@@ -204,7 +204,7 @@ public class  UserRepository {
     }
     
     // User 이름(studentName) 변경 메서드
-  
+    
     public User updateStudentName(User user, String updateStudentName) {
     	
     	 String sql = "UPDATE user SET studentName = ? WHERE id = ?";

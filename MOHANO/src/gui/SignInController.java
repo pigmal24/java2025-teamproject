@@ -16,6 +16,7 @@ import handle2.EmailSender;
 import handle2.Task;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -71,7 +72,25 @@ public class SignInController {
         }
 
         LmsCrawling lmsCrawling = new LmsCrawling(lmsIdInput, lmsPassInput);
-
+        ArrayList<Task> lmsTasks = lmsCrawling.crawling(user.getId());
+        
+        TaskRepository repo = TaskRepository.getInstance();
+        
+        
+        if (lmsTasks != null) {
+        	List<Task> existingTasks = repo.findByUserIdTaskAll(user);
+        	for (Task task : lmsTasks) {
+        		boolean isDuplicate = existingTasks.stream().anyMatch(t -> t.getSubject().equals(task.getSubject()) &&
+        				t.getTitle().equals(task.getTitle()) &&
+        				t.getDeadline().equals(task.getDeadline()));
+        		if (!isDuplicate) {
+        			repo.save(task, user);
+        		}
+        	}
+        }
+        
+        repo.removePastTasksAll(user);
+        
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -81,7 +100,7 @@ public class SignInController {
         List<Task> tasks = null;
 
         try {
-            tasks = lmsCrawling.crawling(-1);
+            tasks = lmsTasks;
 
             if (tasks != null) { // 로그인 성공
                 showAlert(Alert.AlertType.INFORMATION, "로그인 성공", "환영합니다, " + user.getStudentName() + "님!");
@@ -115,6 +134,10 @@ public class SignInController {
                 homeController.setTasks(tasks);
                 //homeController.setUrgentTasks(TaskRepository.getInstance().findByUserIdTaskAll(user));
                 homeController.setUser(user);
+                
+                List<Task> allTasks = repo.findByUserIdTaskAll(user);
+                List<Task> lmsOnly = allTasks.stream().filter(t -> t.getSubject().startsWith("LMS_")).collect(Collectors.toList());
+                homeController.setTasks(lmsOnly);
 
                 Stage stage = (Stage) schoolNumField.getScene().getWindow();
                 stage.setScene(new Scene(root, 600, 400));

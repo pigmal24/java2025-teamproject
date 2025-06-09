@@ -20,7 +20,7 @@
        
        <Button fx:id="addTaskButton" onAction="#handleAddTask" layoutX="432.0" layoutY="66.0" mnemonicParsing="false" text="추가" />
        <Button  fx:id="deleteTaskButton" onAction="#handleDeleteTask" layoutX="483.0" layoutY="66.0" mnemonicParsing="false" prefHeight="7.0" prefWidth="45.0" text="삭제" />
-       <Button layoutY="-1.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="123.0" styleClass="logo">
+       <Button layoutY="-1.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="123.0" styleClass="logo" >
           <graphic>
              <Text fill="#0582ff" strokeType="OUTSIDE" strokeWidth="0.0" text="MOHANO" wrappingWidth="86.484375">
                 <font>
@@ -57,7 +57,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="lmsTaskTable" prefHeight="237.0" prefWidth="461.0">
+                        <TableView fx:id="lmsTaskTable" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" prefHeight="237.0" prefWidth="461.0">
                           <columns>
                             <TableColumn fx:id="subjectCol" prefWidth="97.3" text="과목" />
                             <TableColumn fx:id="titleCol" prefWidth="191.3" text="과제명" />

@@ -31,6 +31,7 @@
             <Font size="16.0" />
          </font>
       </Text>
+      
       <TextField fx:id="deadlineField" layoutX="163.0" layoutY="198.0" prefHeight="25.0" prefWidth="171.0" />
       <Button layoutX="-3.0" layoutY="-1.0" mnemonicParsing="false" onAction="#handleLogoClick">
          <graphic>
@@ -41,5 +42,11 @@
             </Text>
          </graphic>
       </Button>
+      
+      <Text layoutX="60.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="※제출기한은 YYYY-MM-DD HH:MM 형식으로 입력하십시오 " fill="#0582ff">
+      <font>
+        <Font name="Pretendard" size="12.0" />
+      </font>
+    </Text>
    </children>
 </AnchorPane>

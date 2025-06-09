@@ -111,6 +111,8 @@ public class HomeController {
 		lmsTasks = TaskRepository.getInstance().loadLmsTasks();
 		lmsTaskTable.setItems(FXCollections.observableArrayList(this.lmsTasks));
     	
+		TaskRepository.getInstance().removePastTasksAll(user);
+		
 		List<Task> allTasks = TaskRepository.getInstance().findByUserIdTaskAll(user);
 		List<Task> personalTasks = allTasks.stream().filter(task -> !task.getSubject().startsWith("LMS_")).toList();
 		
