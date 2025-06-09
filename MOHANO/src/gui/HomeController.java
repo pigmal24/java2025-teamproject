@@ -105,6 +105,19 @@ public class HomeController {
         personalTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         personalDeadlineCol.setCellValueFactory(cellData ->
             new SimpleStringProperty(cellData.getValue().getDeadlineString()));
+        
+        //더블클릭 시 수정 페이지 이동
+        personalTaskTable.setRowFactory(tv -> {
+            TableRow<Task> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (!row.isEmpty() && event.getClickCount() == 2) {
+                    Task clickedTask = row.getItem();
+                    event.consume();
+                    Platform.runLater(() -> openModifyTaskPage(clickedTask));
+                }
+            });
+            return row;
+        });
     }
 
     private void openModifyTaskPage(Task task) {
