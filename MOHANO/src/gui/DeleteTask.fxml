@@ -21,6 +21,7 @@
 
       <TableView fx:id="taskTable" layoutX="71.0" layoutY="99.0" prefHeight="263.0" prefWidth="457.0">
          <columns>
+            <TableColumn fx:id="selectCol" text="선택" />
             <TableColumn fx:id="deadlineColumn" prefWidth="132.0" text="마감기한" />
             <TableColumn fx:id="subjectColumn" prefWidth="116.0" text="과목" />
             <TableColumn fx:id="titleColumn" prefWidth="208.0" text="과제명" />

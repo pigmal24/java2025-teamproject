@@ -19,22 +19,22 @@
             <Font size="16.0" />
          </font>
       </Text>
-      <TextField layoutX="163.0" layoutY="134.0" prefHeight="25.0" prefWidth="171.0" />
+      <TextField fx:id="subjectField" layoutX="163.0" layoutY="134.0" prefHeight="25.0" prefWidth="171.0" />
       <Text layoutX="57.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="과제 이름" textAlignment="RIGHT" wrappingWidth="89.3333740234375">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <TextField layoutX="163.0" layoutY="166.0" prefHeight="25.0" prefWidth="171.0" />
+      <TextField fx:id="titleField" layoutX="163.0" layoutY="166.0" prefHeight="25.0" prefWidth="171.0" />
       <Text layoutX="60.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="제출 기한" textAlignment="RIGHT" wrappingWidth="85.3333740234375">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <TextField layoutX="163.0" layoutY="198.0" prefHeight="25.0" prefWidth="171.0" />
-      <Button layoutX="-3.0" layoutY="-1.0" mnemonicParsing="false">
+      <TextField fx:id="deadlineField" layoutX="163.0" layoutY="198.0" prefHeight="25.0" prefWidth="171.0" />
+      <Button layoutX="-3.0" layoutY="-1.0" mnemonicParsing="false" onAction="#handleLogoClick">
          <graphic>
-            <Text fill="#0582ff" strokeType="OUTSIDE" strokeWidth="0.0" text="mohano" textAlignment="CENTER" wrappingWidth="85.3333740234375">
+            <Text fill="#0582ff" strokeType="OUTSIDE" strokeWidth="0.0" text="mohano" textAlignment="CENTER" wrappingWidth="85.3333740234375" >
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>

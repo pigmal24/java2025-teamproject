@@ -1,5 +1,6 @@
 package gui;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -60,8 +62,37 @@ public class HomeController {
         personalSubjectCol.setCellValueFactory(new PropertyValueFactory<>("subject"));
         personalTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         personalDeadlineCol.setCellValueFactory(new PropertyValueFactory<>("deadline"));
+        
+        personalTaskTable.setRowFactory(tv -> {
+        	TableRow<Task> row = new TableRow<>();
+        	row.setOnMouseClicked(event -> {
+        		if (!row.isEmpty() && event.getClickCount() == 2) {
+        			Task clickedTask = row.getItem();
+        			event.consume();
+        			Platform.runLater(() -> openModifyTaskPage(clickedTask));
+        		}
+        	});
+        	
+        	return row;
+        });
     }
 
+    private void openModifyTaskPage(Task task) {
+    	try {
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/ModifyTask.fxml"));
+    		Parent root = loader.load();
+    		
+    		ModifyTaskController controller = loader.getController();
+    		controller.setTask(task);
+    		controller.setUser(loggedInUser);
+    		
+    		Stage stage = (Stage) personalTaskTable.getScene().getWindow();
+    		stage.setScene(new Scene(root, 450, 350));
+    		stage.setTitle("Modify Task");
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    }
     // LMS 과제 리스트를 TableView에 세팅하고 필드에 저장
     public void setTasks(List<Task> tasks) {
         this.currentTasks = tasks;
@@ -167,7 +198,7 @@ public class HomeController {
             Parent root = loader.load();
 
             AddTaskController controller = loader.getController();
-            controller.setUser(this.loggedInUser);  // 로그인한 유저 정보 전달!
+            controller.setUser(this.loggedInUser);  // 로그인한 유저 정보 전달
 
             Stage stage = (Stage) addTaskButton.getScene().getWindow();
             stage.setScene(new Scene(root, 450, 400));
@@ -177,16 +208,22 @@ public class HomeController {
         }
     }
 
+    
     @FXML
     public void handleDeleteTask() {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/gui/deleteTask.fxml"));
-            Stage stage = (Stage) deleteTaskButton.getScene().getWindow();
-            stage.setScene(new Scene(root, 600, 450));
-            stage.setTitle("Delete Task");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    	try {
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/deleteTask.fxml"));
+    		Parent root = loader.load();
+    		
+    		DeleteTaskController controller = loader.getController();
+    		controller.setUser(loggedInUser);
+    		
+    		Stage stage = (Stage) deleteTaskButton.getScene().getWindow();
+    		stage.setScene(new Scene(root));
+    		stage.setTitle("Delete Task");
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
     }
 
 }
