@@ -52,7 +52,7 @@
      </Text>
      <Button fx:id="mohanoButton" layoutX="-1.0" layoutY="-2.0" onAction="#handleMohanoButton">
         <graphic>
-           <Text fill="#0582ff" text="mohano">
+           <Text fill="#0582ff" text="mohano" textAlignment="CENTER" wrappingWidth="102.484375">
               <font><Font name="System Bold" size="32.0" /></font>
            </Text>
         </graphic>

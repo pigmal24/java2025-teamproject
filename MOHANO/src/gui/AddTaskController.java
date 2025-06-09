@@ -89,21 +89,25 @@ public class AddTaskController {
    @FXML
    private void handleLogoClick() {
        try {
+           // Home.fxml 로드
            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Home.fxml"));
            Parent root = loader.load();
-           
+
+           // HomeController에 사용자 정보 전달
            HomeController homeController = loader.getController();
            if (loggedInUser != null) {
-               homeController.setUser(loggedInUser);
-               List<Task> updatedTasks = TaskRepository.getInstance().findByUserIdTaskAll(loggedInUser);
-               homeController.setPersonalTasks(updatedTasks);
+               homeController.setUser(loggedInUser);  // setUser가 모든 과제 처리 포함
            }
-           
+
+           // 현재 창 전환
            Stage stage = (Stage) subjectField.getScene().getWindow();
            stage.setScene(new Scene(root, 600, 450));
            stage.setTitle("Home");
+           stage.show();  // 명시적으로 show() 호출
        } catch (Exception e) {
            e.printStackTrace();
+           showAlert("화면 전환 중 오류가 발생했습니다.");
        }
    }
+
 }

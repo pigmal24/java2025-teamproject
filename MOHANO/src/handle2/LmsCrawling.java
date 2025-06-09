@@ -72,7 +72,8 @@ public class LmsCrawling {
             return null;
         }
     }
-	public ArrayList<Task> crawling(int id){ // id = ArrayList.size()-1;
+	
+    public ArrayList<Task> crawling(int id){ // id = ArrayList.size()-1;
 		ArrayList<Task> taskInfos = null;
 		int idLMS = id;
         // WebDriverManager를 사용해 크롬 드라이버 설정
@@ -128,7 +129,8 @@ public class LmsCrawling {
                     // 과제명, 마감일 추출
                     if (course.contains("과제")) {
                     	course = "과제";
-                    }else if (course.contains("퀴즈")){
+                    }
+                    else if (course.contains("퀴즈")){
                     	course = "퀴즈";
                     }
                     String title = content;
@@ -152,7 +154,7 @@ public class LmsCrawling {
                     }
                     title = title.replaceFirst("^(과제|행사|퀴즈)\\s*", "").trim();
                     idLMS++;
-                    taskInfos.add(new Task(idLMS, "LMS_"+ course, title, parseKoreanDateTimeToFormatted(deadline)));
+                    taskInfos.add(new Task(idLMS, course, "LMS_"+title, parseKoreanDateTimeToFormatted(deadline)));
                 } catch (Exception e) {
                 }
             }
@@ -163,4 +165,5 @@ public class LmsCrawling {
         }
         return taskInfos;
 	}
+
 }

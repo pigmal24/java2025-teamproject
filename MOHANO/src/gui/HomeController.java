@@ -15,10 +15,15 @@ import javafx.stage.Stage;
 import respository.TaskRepository;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import handle2.Task;
 import handle2.User;
 import handle2.EmailSender;
+
+import javafx.beans.property.SimpleStringProperty;
 
 public class HomeController {
 
@@ -51,47 +56,72 @@ public class HomeController {
     private List<Task> currentTasks;
     private List<Task> lmsTasks = new ArrayList<>();
 
+//    @FXML
+//    public void initialize() {
+//        System.out.println("🔧 initialize() 진입");
+//        System.out.println("📋 subjectCol is null? " + (subjectCol == null));
+//        System.out.println("📋 titleCol is null? " + (titleCol == null));
+//        System.out.println("📋 deadlineCol is null? " + (deadlineCol == null));
+//
+//        System.out.println("🔧 initialize() 진입");
+//
+//        subjectCol.setCellValueFactory(new PropertyValueFactory<>("subject"));
+//        titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+//
+//        deadlineCol.setCellValueFactory(cellData -> {
+//            String value = cellData.getValue().getDeadlineString();
+//            System.out.println("[LMS 마감일 셀 값]: " + value);
+//            return new SimpleStringProperty(value);
+//        });
+//
+//        // personalTaskTable도 동일하게 바인딩
+//        personalSubjectCol.setCellValueFactory(new PropertyValueFactory<>("subject"));
+//        personalTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+//        personalDeadlineCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDeadlineString()));
+//
+//        // 더블클릭 시 수정 페이지 이동
+//        personalTaskTable.setRowFactory(tv -> {
+//            TableRow<Task> row = new TableRow<>();
+//            row.setOnMouseClicked(event -> {
+//                if (!row.isEmpty() && event.getClickCount() == 2) {
+//                    Task clickedTask = row.getItem();
+//                    event.consume();
+//                    Platform.runLater(() -> openModifyTaskPage(clickedTask));
+//                }
+//            });
+//            return row;
+//        });
+//        
+//
+//    }
     @FXML
     public void initialize() {
-        // LMS 과제 TableView 컬럼 설정
         subjectCol.setCellValueFactory(new PropertyValueFactory<>("subject"));
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
-        deadlineCol.setCellValueFactory(new PropertyValueFactory<>("deadline"));
+        deadlineCol.setCellValueFactory(cellData -> 
+            new SimpleStringProperty(cellData.getValue().getDeadlineString()));
 
-        // 과제 목록 TableView 컬럼 설정
         personalSubjectCol.setCellValueFactory(new PropertyValueFactory<>("subject"));
         personalTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
-        personalDeadlineCol.setCellValueFactory(new PropertyValueFactory<>("deadline"));
-        
-        personalTaskTable.setRowFactory(tv -> {
-        	TableRow<Task> row = new TableRow<>();
-        	row.setOnMouseClicked(event -> {
-        		if (!row.isEmpty() && event.getClickCount() == 2) {
-        			Task clickedTask = row.getItem();
-        			event.consume();
-        			Platform.runLater(() -> openModifyTaskPage(clickedTask));
-        		}
-        	});
-        	
-        	return row;
-        });
+        personalDeadlineCol.setCellValueFactory(cellData ->
+            new SimpleStringProperty(cellData.getValue().getDeadlineString()));
     }
 
     private void openModifyTaskPage(Task task) {
-    	try {
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/ModifyTask.fxml"));
-    		Parent root = loader.load();
-    		
-    		ModifyTaskController controller = loader.getController();
-    		controller.setTask(task);
-    		controller.setUser(loggedInUser);
-    		
-    		Stage stage = (Stage) personalTaskTable.getScene().getWindow();
-    		stage.setScene(new Scene(root, 450, 350));
-    		stage.setTitle("Modify Task");
-    	} catch (Exception e) {
-    		e.printStackTrace();
-    	}
+       try {
+          FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/ModifyTask.fxml"));
+          Parent root = loader.load();
+          
+          ModifyTaskController controller = loader.getController();
+          controller.setTask(task);
+          controller.setUser(loggedInUser);
+          
+          Stage stage = (Stage) personalTaskTable.getScene().getWindow();
+          stage.setScene(new Scene(root, 450, 350));
+          stage.setTitle("Modify Task");
+       } catch (Exception e) {
+          e.printStackTrace();
+       }
     }
     // LMS 과제 리스트를 TableView에 세팅하고 필드에 저장
     public void setTasks(List<Task> tasks) {
@@ -100,49 +130,94 @@ public class HomeController {
             lmsTaskTable.setItems(FXCollections.observableArrayList());
             return;
         }
-        lmsTaskTable.setItems(FXCollections.observableArrayList(tasks));
+        
+        List<Task> lmsOnly = tasks.stream().filter(task -> task.getSubject().startsWith("LMS_")).toList();
+        lmsTaskTable.setItems(FXCollections.observableArrayList(lmsOnly));
     }
 
     // User 객체 세팅
     public void setUser(User user) {
-    	this.loggedInUser = user;
-    	
-    	//lms 정보가 바뀌었을 수도 있으므로 lms과제 다시 불러오기
-		lmsTasks = TaskRepository.getInstance().loadLmsTasks();
-		lmsTaskTable.setItems(FXCollections.observableArrayList(this.lmsTasks));
-    	
-		TaskRepository.getInstance().removePastTasksAll(user);
-		
-		List<Task> allTasks = TaskRepository.getInstance().findByUserIdTaskAll(user);
-		List<Task> personalTasks = allTasks.stream().filter(task -> !task.getSubject().startsWith("LMS_")).toList();
-		
-		this.currentTasks = personalTasks;
-		
-    	//lmsTaskTable.setItems(FXCollections.observableArrayList(this.lmsTasks));
-    	personalTaskTable.setItems(FXCollections.observableArrayList(this.currentTasks));
+        this.loggedInUser = user;
+
+        TaskRepository.getInstance().removePastTasksAll(user);
+        List<Task> allTasks = TaskRepository.getInstance().findByUserIdTaskAll(user);
+
+        applyTaskListWithDedup(allTasks); // 중복 제거 및 분리 세팅
+    }
+
+    public void loadWithTasks(User user, List<Task> allTasks) {
+        this.loggedInUser = user;
+
+        Set<String> seen = new HashSet<>();
+        this.lmsTasks = allTasks.stream()
+            .filter(Task::isLmsTask)
+            .filter(task -> seen.add(task.getTitle() + task.getDeadline() + task.getSubject()))
+            .toList();
+
+        seen.clear();
+        this.currentTasks = allTasks.stream()
+            .filter(task -> !task.isLmsTask())
+            .filter(task -> seen.add(task.getTitle() + task.getDeadline() + task.getSubject()))
+            .toList();
+
+        lmsTaskTable.setItems(FXCollections.observableArrayList(this.lmsTasks));
+        personalTaskTable.setItems(FXCollections.observableArrayList(this.currentTasks));
+    }
+
+    private void applyTaskListWithDedup(List<Task> allTasks) {
+        Set<String> seen = new HashSet<>();
+
+        this.lmsTasks = allTasks.stream()
+            .filter(Task::isLmsTask)
+            .filter(task -> seen.add(task.getTitle() + task.getDeadline() + task.getSubject()))
+            .toList();
+
+        seen.clear();
+
+        this.currentTasks = allTasks.stream()
+            .filter(task -> !task.isLmsTask())
+            .filter(task -> seen.add(task.getTitle() + task.getDeadline() + task.getSubject()))
+            .toList();
+
+        lmsTaskTable.setItems(FXCollections.observableArrayList(this.lmsTasks));
+        personalTaskTable.setItems(FXCollections.observableArrayList(this.currentTasks));
+    }
+
+    public void refreshOnlyPersonalTasks() {
+        if (this.loggedInUser == null) return;
+
+        List<Task> allTasks = TaskRepository.getInstance().findByUserIdTaskAll(loggedInUser);
+
+        Set<String> seen = new HashSet<>();
+        this.currentTasks = allTasks.stream()
+            .filter(task -> !task.isLmsTask())
+            .filter(task -> seen.add(task.getTitle() + task.getDeadline() + task.getSubject()))
+            .toList();
+
+        personalTaskTable.setItems(FXCollections.observableArrayList(this.currentTasks));
     }
     
     public void setPersonalTasks(List<Task> personalTasks) {
-    	this.currentTasks = personalTasks;
-    	refreshTasks();
+       this.currentTasks = personalTasks;
+       refreshTasks();
     }
     
     public List<Task> getCurrentTasks() {
-    	return currentTasks;
+       return currentTasks;
     }
     
     public void refreshTasks() {
-    	if (this.loggedInUser == null) {
-    		return;
-    	}
-    	
-    	List<Task> allTasks = TaskRepository.getInstance().findByUserIdTaskAll(loggedInUser);
-    	List<Task> personalTasks = allTasks.stream().filter(task -> !task.getSubject().startsWith("LMS_")).toList();
-    	this.currentTasks = personalTasks;
-    	
-    	personalTaskTable.setItems(FXCollections.observableArrayList(this.currentTasks));
-    	lmsTasks = TaskRepository.getInstance().loadLmsTasks();
-    	lmsTaskTable.setItems(FXCollections.observableArrayList(this.lmsTasks));
+       if (this.loggedInUser == null) {
+          return;
+       }
+       
+       List<Task> allTasks = TaskRepository.getInstance().findByUserIdTaskAll(loggedInUser);
+       List<Task> personalTasks = allTasks.stream().filter(task -> !task.getTitle().startsWith("LMS_")).toList();
+       this.currentTasks = personalTasks;
+       
+       personalTaskTable.setItems(FXCollections.observableArrayList(this.currentTasks));
+       lmsTasks = TaskRepository.getInstance().loadLmsTasks();
+       lmsTaskTable.setItems(FXCollections.observableArrayList(this.lmsTasks));
     }
 
     @FXML
@@ -192,7 +267,7 @@ public class HomeController {
             e.printStackTrace();
         }
     }
-
+    
     @FXML
     public void handleAddTask() {
         try {
@@ -209,24 +284,21 @@ public class HomeController {
             e.printStackTrace();
         }
     }
-
     
     @FXML
     public void handleDeleteTask() {
-    	try {
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/deleteTask.fxml"));
-    		Parent root = loader.load();
-    		
-    		DeleteTaskController controller = loader.getController();
-    		controller.setUser(loggedInUser);
-    		
-    		Stage stage = (Stage) deleteTaskButton.getScene().getWindow();
-    		stage.setScene(new Scene(root));
-    		stage.setTitle("Delete Task");
-    	} catch (Exception e) {
-    		e.printStackTrace();
-    	}
+       try {
+          FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/deleteTask.fxml"));
+          Parent root = loader.load();
+          
+          DeleteTaskController controller = loader.getController();
+          controller.setUser(loggedInUser);
+          
+          Stage stage = (Stage) deleteTaskButton.getScene().getWindow();
+          stage.setScene(new Scene(root));
+          stage.setTitle("Delete Task");
+       } catch (Exception e) {
+          e.printStackTrace();
+       }
     }
-
 }
-
