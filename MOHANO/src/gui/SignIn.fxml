@@ -9,7 +9,9 @@
 <AnchorPane prefHeight="450.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.SignInController">
   <children>
     <Text layoutX="245.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label heading" text="Sign in">
-      
+      <font>
+        <Font name="System Bold" size="50.0" />
+      </font>
     </Text>
 
     <Text layoutX="170.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="학번" textAlignment="RIGHT" wrappingWidth="47.3">
