@@ -14,8 +14,9 @@ import javafx.stage.Stage;
 public class MOHANOMain extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-	    FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/StartView.fxml"));
+	    FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Startview.fxml"));
 	    Parent root = loader.load();
+	    
 	    Scene scene = new Scene(root);
 
 	    scene.getStylesheets().add(getClass().getResource("/gui/style.css").toExternalForm());
