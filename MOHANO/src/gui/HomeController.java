@@ -307,7 +307,7 @@ public class HomeController {
     @FXML
     public void handleDeleteTask() {
        try {
-          FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/deleteTask.fxml"));
+          FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/DeleteTask.fxml"));
           Parent root = loader.load();
           
           DeleteTaskController controller = loader.getController();
