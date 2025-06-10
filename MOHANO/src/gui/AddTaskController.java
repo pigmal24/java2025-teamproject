@@ -35,8 +35,8 @@ public class AddTaskController {
            String deadlineString = deadlineField.getText().trim();
 
            if (subject.isEmpty() || title.isEmpty() || deadlineString.isEmpty()) {
-        	   showAlert("모든 입력란을 채워주세요.");
-        	   return;
+              showAlert("모든 입력란을 채워주세요.");
+              return;
            }
            
            // 날짜 형식이 "yyyy-MM-dd"로만 입력되면 시간 추가
@@ -49,41 +49,41 @@ public class AddTaskController {
            newTask.setTitle(title);
            
            try {
-        	   newTask.setDeadline(deadlineString);
+              newTask.setDeadline(deadlineString);
            } catch (DateTimeParseException e) {
-        	   showAlert("날짜 형식이 올바르지 않습니다.\n예시: 2025-06-25 23:59");
-        	   return;
+              showAlert("날짜 형식이 올바르지 않습니다.\n예시: 2025-06-25 23:59");
+              return;
            }
            
            // DB에 새 과제 저장
            TaskRepository.getInstance().save(newTask, loggedInUser);
 
-           // 저장 후 최신 과제 목록 DB에서 다시 조회
-           List<Task> updatedTasks = TaskRepository.getInstance().findByUserIdTaskAll(loggedInUser);
-           List<Task> personalTasks = updatedTasks.stream().filter(task -> !task.getSubject().startsWith("LMS_")).toList();
-           
-           // Home 화면 FXML 로드 및 컨트롤러 접근
+           // 홈 화면 로드
            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Home.fxml"));
            Parent root = loader.load();
-
            HomeController homeController = loader.getController();
-           homeController.setUser(loggedInUser);
-           homeController.setPersonalTasks(personalTasks);  // 최신 과제 목록 갱신
+
+           // 모든 과제를 다시 불러와서 전달
+           List<Task> allTasks = TaskRepository.getInstance().findByUserIdTaskAll(loggedInUser);
+           homeController.loadWithTasks(loggedInUser, allTasks);
 
            Stage stage = (Stage) subjectField.getScene().getWindow();
            stage.setScene(new Scene(root, 600, 450));
            stage.setTitle("Home");
+           stage.show();
+
        } catch (Exception e) {
            e.printStackTrace();
+           showAlert("과제 추가 후 홈 화면 로딩 중 오류가 발생했습니다.");
        }
    }
 
    private void showAlert(String msg) {
-	   Alert alert = new Alert(Alert.AlertType.ERROR);
-	   alert.setTitle("입력 오류");
-	   alert.setHeaderText(null);
-	   alert.setContentText(msg);
-	   alert.showAndWait();
+      Alert alert = new Alert(Alert.AlertType.ERROR);
+      alert.setTitle("입력 오류");
+      alert.setHeaderText(null);
+      alert.setContentText(msg);
+      alert.showAndWait();
    }
    
    @FXML
@@ -109,5 +109,4 @@ public class AddTaskController {
            showAlert("화면 전환 중 오류가 발생했습니다.");
        }
    }
-
 }
