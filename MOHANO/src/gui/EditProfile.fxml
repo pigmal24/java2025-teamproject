@@ -50,12 +50,13 @@
      <Text layoutX="84.0" layoutY="332.0" text="lms 비밀번호" textAlignment="RIGHT" wrappingWidth="135.33" styleClass="text">
         <font><Font size="18.0" /></font>
      </Text>
-     <Button fx:id="mohanoButton" layoutX="-1.0" layoutY="-2.0" onAction="#handleMohanoButton" styleClass="button logo" prefHeight="52.0" prefWidth="127.0">
-        <graphic>
-           <Text fill="#0582ff" text="mohano" textAlignment="CENTER" wrappingWidth="111.15106201171875">
-              <font><Font name="System Bold" size="32.0" /></font>
-           </Text>
-        </graphic>
-     </Button>
+     <Button fx:id="mohanoButton"
+        layoutX="-1.0"
+        mnemonicParsing="false"
+        text="mohano"
+        onAction="#handleMohanoButton"
+        styleClass="button-logo"
+        prefWidth="80.0"
+        prefHeight="52.0"/>
   </children>
 </AnchorPane>

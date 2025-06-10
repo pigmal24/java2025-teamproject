@@ -32,12 +32,13 @@
                 text="goto sign up" onAction="#handleGoToSignUp" styleClass="button" />
 
         <Button fx:id="mohanoButton"
-                layoutX="0.0" layoutY="0.0"
-                styleClass="button logo"
-                text="mohano"
-                onAction="#goToSignInAndUp"
-                prefHeight="52.0"
-                prefWidth="140.0"/>
+	        layoutX="-1.0"
+	        mnemonicParsing="false"
+	        text="mohano"
+	        onAction="#goToSignInAndUp"
+	        styleClass="button-logo"
+	        prefWidth="140.0"
+	        prefHeight="52.0"/>
 
         <Text layoutX="0.0" layoutY="373.0" wrappingWidth="600.0" textAlignment="CENTER"
               styleClass="text" fill="#0582ff"

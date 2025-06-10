@@ -1,20 +1,5 @@
-@font-face {
-	font-family: 'Pretendard';
-	src: url('../../resources/Pretendard-Regular.ttf');
-}
-
-@font-face {
-	font-family: 'HeadingFont';
-	src: url('../../resources/Pretendard-Bold.ttf');
-}
-
-@font-face {
-	font-family: 'PyeongChang';
-	src: url('../../resources/PyeongChangPeace-Bold.ttf');
-}
-
 .root {
-	-fx-font-family: 'Pretendard', 'Noto Sans KR', 'sans-serif';
+	-fx-font-family: 'Pretendard', 'NotoSansKR', 'PyeongChangPeace', sans-serif;
 	-fx-background-color: #ffffff;
 }
 
@@ -24,7 +9,7 @@
 }
 
 .text {
-	-fx-font-family: 'Pretendard', 'Noto Sans KR', 'sans-serif';
+	-fx-font-family: 'Pretendard';
 	-fx-font-size: 12px;
 	-fx-text-fill: #222;
 }
@@ -43,19 +28,19 @@
 	-fx-padding: 6 12
 }
 
-.button.logo {
-	-fx-background-color: white !important;
+.button-logo {
+	-fx-background-color: white;
 	-fx-border-color: transparent;
-	-fx-font-family: 'PyeongChang', sans-serif;
+	-fx-font-family: 'PyeongChangPeace';
 	-fx-text-fill: #0582ff;
-	-fx-font-size: 32px;
-	-fx-pref-width: 140px;
+	-fx-font-size: 50px;
+	-fx-pref-width: 90px;
 	-fx-pref-height: 52px;
 	-fx-padding: 0;
 }
 
 .logo-title {
-	-fx-font-family: 'PyeongChang';
+	-fx-font-family: 'PyeongChangPeace';
 	-fx-font-size: 48px;
 	-fx-text-fill: #0582ff;
 }
@@ -67,12 +52,12 @@
 }
 
 .tab-pane {
-	-fx-font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+	-fx-font-family: 'Pretendard', sans-serif;
 	-fx-background-color: #ffffff;
 }
 
 .tab {
-	-fx-font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+	-fx-font-family: 'Pretendard', sans-serif;
 	-fx-font-size: 14px;
 }
 

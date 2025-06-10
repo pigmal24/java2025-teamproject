@@ -32,15 +32,15 @@
          </font>
       </Text>
       <TextField fx:id="deadlineField" layoutX="180.0" layoutY="190.0" prefHeight="25.0" prefWidth="171.0" />
-      <Button fx:id="mohanoButton" layoutX="-1.0" mnemonicParsing="false" text="Mohano" onAction="#handleLogoClick" styleClass="button logo" prefHeight="44.0" prefWidth="115.0">
-         <graphic>
-            <Text fill="#0582ff" strokeType="OUTSIDE" strokeWidth="0.0"  textAlignment="CENTER" wrappingWidth="97.81768035888672">
-               <font>
-                  <Font name="System Bold" size="30.0" />
-               </font>
-            </Text>
-         </graphic>
-      </Button>
+      <Button fx:id="mohanoButton"
+        layoutX="-1.0"
+        mnemonicParsing="false"
+        text="mohano"
+        textAlignment="CENTER"
+        onAction="#handleLogoClick"
+        styleClass="button-logo"
+        prefWidth="80.0"
+        prefHeight="52.0"/>
       
       <Text fill="#0582ff" layoutX="82.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="※ 제출기한은 YYYY-MM-DD HH:MM 형식으로 입력하십시오 ">
       <font>

@@ -297,7 +297,7 @@ public class HomeController {
             controller.setUser(this.loggedInUser);  // 로그인한 유저 정보 전달
 
             Stage stage = (Stage) addTaskButton.getScene().getWindow();
-            stage.setScene(new Scene(root, 450, 400));
+            stage.setScene(new Scene(root, 450, 350));
             stage.setTitle("Add Task");
         } catch (Exception e) {
             e.printStackTrace();
