@@ -6,71 +6,49 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21.0.7" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.SignInController">
-  <children>
-    <Text layoutX="245.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign in">
-      <font>
-        <Font name="System Bold" size="50.0" />
-      </font>
-    </Text>
+<AnchorPane prefHeight="450.0" prefWidth="600.0"
+            stylesheets="@style.css"
+            xmlns="http://javafx.com/javafx/21.0.7"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="gui.SignInController">
 
-    <Text layoutX="174.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="학번" textAlignment="RIGHT" wrappingWidth="47.3">
-      <font>
-        <Font size="18.0" />
-      </font>
-    </Text>
-    <TextField fx:id="schoolNumField" layoutX="230.0" layoutY="137.0" prefHeight="32.0" prefWidth="197.0">
-      <font>
-        <Font size="18.0" />
-      </font>
-    </TextField>
+    <children>
 
-    <Text layoutX="151.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="이메일" textAlignment="RIGHT" wrappingWidth="70.6">
-      <font>
-        <Font size="18.0" />
-      </font>
-    </Text>
-    <TextField fx:id="emailField" layoutX="230.0" layoutY="179.0" prefHeight="32.0" prefWidth="197.0">
-      <font>
-        <Font size="18.0" />
-      </font>
-    </TextField>
+        <Text layoutX="245.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0"
+              styleClass="logo-title" text="Sign in" />
 
-    <Button alignment="CENTER" graphicTextGap="2.0" layoutX="152.0" layoutY="230.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="295.0" text="log in" onAction="#handleLogin">
-      <font>
-        <Font size="20.0" />
-      </font>
-    </Button>
+        <Text layoutX="170.0" layoutY="169.0" styleClass="text" text="학번" textAlignment="RIGHT" wrappingWidth="47.3"/>
+        <TextField fx:id="schoolNumField" layoutX="226.0" layoutY="146.0" prefHeight="32.0" prefWidth="197.0"
+                   styleClass="text" />
 
-    <Button fx:id="gotoSignUpButton" onAction="#handleGoToSignUp" alignment="CENTER" graphicTextGap="2.0" layoutX="257.0" layoutY="280.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" text="goto sign up" />
+        <Text layoutX="147.0" layoutY="210.0" styleClass="text" text="이메일" textAlignment="RIGHT" wrappingWidth="70.6"/>
+        <TextField fx:id="emailField" layoutX="226.0" layoutY="188.0" prefHeight="32.0" prefWidth="197.0"
+                   styleClass="text" />
 
-    <Button fx:id="mohanoButton" onAction="#goToSignInAndUp" layoutX="0.0" layoutY="0.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="125.0">
-      <graphic>
-        <Text fill="#0582ff" strokeType="OUTSIDE" strokeWidth="0.0" text="MOHANO">
-          <font>
-            <Font name="System Bold" size="32.0" />
-          </font>
-        </Text>
-      </graphic>
-    </Button>
-    <Text layoutX="120.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" text="※ LMS 대시보드가 '할 일 목록 보기'로 설정되어 있어야 합니다" fill="#0582ff">
-      <font>
-        <Font name="Pretendard" size="14.0" />
-      </font>
-    </Text>
-    
-      <Text layoutX="120.0" layoutY="360.0" strokeType="OUTSIDE" strokeWidth="0.0" text="※ LMS 정보가 틀렸다는 안내창이 뜰 시 확인을 누르면 넘어갑니다 " fill="#0582ff">
-      <font>
-        <Font name="Pretendard" size="14.0" />
-      </font>
-    </Text>
-    
-    
-      <Text layoutX="121.5" layoutY="380.0" strokeType="OUTSIDE" strokeWidth="0.0" text="   LMS 과제 목록을 확인하려면 회원 정보를 옳게 수정해주세요 " fill="#0582ff">
-      <font>
-        <Font name="Pretendard" size="14.0" />
-      </font>
-    </Text>
-    
-  </children>
+        <Button layoutX="152.0" layoutY="250.0" prefHeight="37.0" prefWidth="295.0"
+                text="log in" onAction="#handleLogin" styleClass="button" />
+
+        <Button fx:id="gotoSignUpButton" layoutX="251.0" layoutY="293.0" prefHeight="19.0" prefWidth="97.0"
+                text="goto sign up" onAction="#handleGoToSignUp" styleClass="button" />
+
+        <Button fx:id="mohanoButton"
+	        layoutX="-1.0"
+	        mnemonicParsing="false"
+	        text="mohano"
+	        onAction="#goToSignInAndUp"
+	        styleClass="button-logo"
+	        prefWidth="140.0"
+	        prefHeight="52.0"/>
+
+        <Text layoutX="0.0" layoutY="373.0" wrappingWidth="600.0" textAlignment="CENTER"
+              styleClass="text" fill="#0582ff"
+              text="※ LMS 대시보드가 '할 일 목록 보기'로 설정되어 있어야 합니다." />
+        <Text layoutX="0.0" layoutY="391.0" wrappingWidth="600.0" textAlignment="CENTER"
+              styleClass="text" fill="#0582ff"
+              text="※ LMS 정보가 틀렸다는 안내창이 뜰 경우 확인을 누르면 넘어갑니다." />
+        <Text layoutX="0.0" layoutY="409.0" wrappingWidth="600.0" textAlignment="CENTER"
+              styleClass="text" fill="#0582ff"
+              text="※  LMS 과제 목록을 확인하려면 회원 정보를 옳게 수정해주세요." />
+
+    </children>
 </AnchorPane>

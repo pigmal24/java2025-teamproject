@@ -62,19 +62,24 @@ public class Task {
     
     
     public void setDeadline(String deadlineStr) {
+    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         this.deadline = LocalDateTime.parse(deadlineStr, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
     public LocalDateTime getDeadline() {
        return deadline;
     }
-    // 오류나면 이거부터 삭제해주세요
+    // 오류나면 이거부터 삭제해주세요수정함)
     public String getDeadlineString() {
-       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-       return deadline.format(formatter);
+        return deadline.format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
     @Override
     public String toString() {
         return "taskId: " + taskId + " 과목: " + subject + ", 과제: " + title + ", 제출기한: " + deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
+    
+    public boolean isLmsTask() {
+        return title != null && title.startsWith("LMS_");
+    }
+
 }

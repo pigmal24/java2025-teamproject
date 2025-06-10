@@ -14,5 +14,5 @@
     <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="console.MOHANOMain"/>
     <stringAttribute key="org.eclipse.jdt.launching.MODULE_NAME" value="MOHANO"/>
     <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="MOHANO"/>
-    <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="--module-path &quot;C:\Users\namsa\Desktop\javabrowser\openjfx-21.0.7_windows-x64_bin-sdk\javafx-sdk-21.0.7\lib&quot; --add-modules javafx.controls,javafx.fxml"/>
+    <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="--module-path lib\javafx-sdk-21.0.7\lib --add-modules javafx.controls,javafx.fxml -Dprism.order=sw"/>
 </launchConfiguration>

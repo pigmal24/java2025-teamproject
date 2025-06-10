@@ -75,8 +75,9 @@ public class EditProfileController {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Home.fxml"));
                 Parent root = loader.load();
+                
                 HomeController homeController = loader.getController();
-                // 필요시 homeController.setUser(foundUser);
+                homeController.setUser(this.user);
                 Stage stage = (Stage) saveInfoButton.getScene().getWindow();
                 stage.setScene(new Scene(root, 600, 400));
                 stage.setTitle("Home");
