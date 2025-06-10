@@ -1,7 +1,7 @@
 java ver: jdk 21.0.6.7
 mariadb: 10.6(tool: heildSQL)
-javafx: 21.0.7
-selenium: 4.32.0(server)
+javafx: 21.0.7(part of)
+selenium: 4.33.0(part file of zipfile)
 webdrivermanager: 6.1.0(fat)
 
 SETTING before RUN
