@@ -29,6 +29,5 @@ MOHANO는 학생과 직장인을 위한 **이메일 기반 과제 관리 및 알
 ## 🛠️ 기술 스택
 
 - **언어**: Java 21
-- **GUI**: JavaFX (Eclipse WindowBuilder 활용)
+- **GUI**: JavaFX (SceneBuilder 활용)
 - **데이터 저장**: MariaDB
-- **빌드 도구**: Maven / Gradle
